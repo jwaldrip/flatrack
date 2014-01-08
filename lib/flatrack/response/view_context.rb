@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   class Response
     class ViewContext
 
@@ -63,11 +63,11 @@ module FlatRack
       private
 
       def stylesheet_exists?(name)
-        FlatRack.assets[name]
+        Flatrack.assets[name]
       end
 
       def javascript_exists?(name)
-        FlatRack.assets[name]
+        Flatrack.assets[name]
       end
 
     end

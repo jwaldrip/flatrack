@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   class Response
 
     autoload :ViewContext, 'flatrack/response/view_context'

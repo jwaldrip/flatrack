@@ -2,16 +2,16 @@ require 'flatrack/version'
 require 'sprockets'
 require 'active_support/all'
 
-module FlatRack
+module Flatrack
   extend ActiveSupport::Autoload
 
   autoload :Renderer
   autoload :Request
   autoload :Response
-  autoload :App
+  autoload :Site
   autoload :AssetExtensions
 
-  RendererNotFound = Class.new(StandardError)
+  RendererNotFound = Class.new StandardError
   FileNotFound     = Class.new StandardError
 
   FORMATS = {

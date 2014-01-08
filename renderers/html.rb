@@ -1,6 +1,6 @@
 require 'flatrack/renderer/base'
 
-class FlatRack::Renderer::Html < FlatRack::Renderer::Base
+class Flatrack::Renderer::Html < Flatrack::Renderer::Base
 
   renders :html
 

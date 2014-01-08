@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   class Request
 
     DEFAULT_FORMAT = 'html'

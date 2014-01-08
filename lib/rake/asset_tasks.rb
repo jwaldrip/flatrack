@@ -43,7 +43,7 @@ module Rake
     end
 
     def initialize
-      @environment  = FlatRack.assets
+      @environment  = Flatrack.assets
       @logger       = Logger.new($stderr)
       @logger.level = Logger::INFO
       @index        = environment.index

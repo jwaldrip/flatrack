@@ -1,6 +1,6 @@
 require 'flatrack/renderer/base'
 
-class FlatRack::Renderer::ERB < FlatRack::Renderer::Base
+class Flatrack::Renderer::ERB < Flatrack::Renderer::Base
 
   renders :erb
 

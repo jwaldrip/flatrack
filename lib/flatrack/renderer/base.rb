@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   module Renderer
     class Base
 

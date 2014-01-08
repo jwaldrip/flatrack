@@ -5,7 +5,7 @@ require 'flatrack/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "flatrack"
-  spec.version       = FlatRack::VERSION
+  spec.version       = Flatrack::VERSION
   spec.authors       = ["Jason Waldrip"]
   spec.email         = ["jason@waldrip.net"]
   spec.summary       = 'A template based flat rack site'
@@ -13,7 +13,6 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
-  spec.files         = Dir.glob File.join __dir__, '**', '*'
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]

@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   module Renderer
     extend self
     extend ActiveSupport::Autoload
@@ -10,13 +10,10 @@ module FlatRack
       raise FileNotFound, "could not find #{file}" unless template
       ext = File.extname(template).sub(/\./, '')
 
-      Base.descendants.find { |descendant| descendant.renders?(ext)  } ||
+      renderer = Base.descendants.find { |descendant| descendant.renders?(ext)  } ||
         raise(RendererNotFound, "could not find a renderer for #{file}")
 
-      klass = const_get(name.split('_').map(&:capitalize).join, false)
-      klass.new template
-    rescue NameError, TypeError
-      raise RendererNotFound, "could not find a renderer for #{file}"
+      renderer.new template
     end
 
   end

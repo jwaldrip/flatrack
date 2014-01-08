@@ -1,7 +1,7 @@
-module FlatRack
-  App = Rack::Builder.app do
+module Flatrack
+  Site = Rack::Builder.app do
     map '/assets' do
-      run FlatRack.assets
+      run Flatrack.assets
     end
 
     map '/' do

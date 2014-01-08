@@ -1,4 +1,4 @@
-module FlatRack
+module Flatrack
   module AssetExtensions
 
     def asset_path(path, options={})
