@@ -16,6 +16,7 @@ module Flatrack
       self.destination_root = path
       template '.gitignore', '.gitignore'
       template 'Gemfile.erb', 'Gemfile'
+      template 'config.ru', 'config.ru'
       template 'layout.html.erb', 'layouts/layout.html.erb'
       template 'page.html.erb', 'pages/index.html.erb'
       template 'stylesheet.css.scss', 'assets/stylesheet.css.scss'
