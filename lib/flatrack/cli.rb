@@ -7,7 +7,7 @@ module Flatrack
 
     desc 'new NAME', 'create a new flatrack site with the given name'
 
-    source_root 'templates'
+    source_root File.join Flatrack.root, '..', 'templates'
 
     def new(name)
       @name = name.titleize

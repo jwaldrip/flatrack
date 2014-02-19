@@ -17,6 +17,10 @@ module Flatrack
 
   FORMATS = {}
 
+  def self.root
+    File.expand_path File.join __FILE__, '..'
+  end
+
   def self.register_format(ext, mime)
     FORMATS[ext.to_s] = mime
   end
