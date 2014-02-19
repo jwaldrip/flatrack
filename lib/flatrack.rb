@@ -10,14 +10,16 @@ module Flatrack
   autoload :Response
   autoload :Site
   autoload :AssetExtensions
+  autoload :CLI
 
   RendererNotFound = Class.new StandardError
   FileNotFound     = Class.new StandardError
 
-  FORMATS = {
-    'html' => 'text/html',
-    'rb'   => 'text/html'
-  }
+  FORMATS = {}
+
+  def self.register_format(ext, mime)
+    FORMATS[ext.to_s] = mime
+  end
 
   def self.assets
     @assets ||= begin

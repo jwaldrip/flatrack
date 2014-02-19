@@ -1,4 +1,7 @@
 module Flatrack
+
+  register_format :html, 'text/html'
+
   Site = Rack::Builder.app do
     map '/assets' do
       run Flatrack.assets
