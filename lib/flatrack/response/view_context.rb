@@ -6,8 +6,8 @@ module Flatrack
         @response = response
       end
 
-      def get_binding
-        binding
+      def get_binding(&block)
+        binding(&block)
       end
 
       def path
