@@ -21,13 +21,14 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Ruby Version
-  spec.required_ruby_version = '>= 1.6.8'
+  spec.required_ruby_version = '>= 1.9.3'
 
   # Dependencies
   spec.add_dependency 'rack'
   spec.add_dependency 'activesupport'
   spec.add_dependency 'sass'
   spec.add_dependency 'sprockets'
+  spec.add_dependency 'sprockets-sass'
   spec.add_dependency 'thor'
   spec.add_dependency 'coffee-script'
   spec.add_dependency 'rake'
