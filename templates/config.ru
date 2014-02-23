@@ -1,6 +1,2 @@
-STDOUT.sync = true
-
-require 'bundler/setup'
-Bundler.require(:default)
-
+require './boot'
 run Flatrack::Site

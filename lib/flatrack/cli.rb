@@ -15,6 +15,8 @@ module Flatrack
       path                  = File.expand_path name
       self.destination_root = path
       template '.gitignore', '.gitignore'
+      template 'boot.rb', 'boot.rb'
+      template 'Rakefile', 'Rakefile'
       template 'Gemfile.erb', 'Gemfile'
       template 'config.ru', 'config.ru'
       template 'layout.html.erb', 'layouts/layout.html.erb'
