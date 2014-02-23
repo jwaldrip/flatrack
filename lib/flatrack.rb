@@ -1,6 +1,8 @@
 require 'flatrack/version'
-require 'sprockets'
 require 'active_support/all'
+require 'sprockets'
+require 'sprockets-sass'
+require 'sass'
 
 module Flatrack
   extend ActiveSupport::Autoload
