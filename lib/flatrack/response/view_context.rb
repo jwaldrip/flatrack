@@ -1,6 +1,7 @@
 module Flatrack
   class Response
     class ViewContext
+      include AssetExtensions
 
       def initialize(response)
         @response = response
