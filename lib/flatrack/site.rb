@@ -15,7 +15,7 @@ module Flatrack
     end
 
     map '/' do
-      run ->(env){ Request.new(env).response }
+      run ->(env) { Request.new(env).response }
     end
   end
 end

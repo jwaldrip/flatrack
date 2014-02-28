@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <head>
-  <title><% @name %></title>
-  <%%= stylesheet_tag :application %>
+  <title>
+    <% @name %></title>
+  <%%= stylesheet_tag :main %>
+  <%%= javascript_tag :main %>
 </head>
 <body>
-  <%%= yield %>
+<%%= yield %>
 </body>

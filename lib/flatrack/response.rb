@@ -3,7 +3,7 @@ module Flatrack
 
     autoload :ViewContext, 'flatrack/response/view_context'
 
-    DEFAULT_FILE   = 'index'
+    DEFAULT_FILE  = 'index'
     CONTENT_TYPES = {
       html: 'text/html',
       rb:   'text/html'
@@ -42,10 +42,10 @@ module Flatrack
 
     def render_file(file = nil, options={})
       status, layout = options.values_at(:status, :layout)
-      layout ||= :layout
-      file ||= file_for(request.path)
-      contents = renderer_for(file).render(view_context)
-      contents = layout_for(layout).render(view_context){ contents } if layout
+      layout         ||= :layout
+      file           ||= file_for(request.path)
+      contents       = renderer_for(file).render(view_context)
+      contents       = layout_for(layout).render(view_context) { contents } if layout
       self.body << contents
       [status, headers, body]
     end

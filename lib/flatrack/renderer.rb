@@ -10,7 +10,7 @@ module Flatrack
       raise FileNotFound, "could not find #{file}" unless template
       ext = File.extname(template).sub(/\./, '')
 
-      renderer = Base.descendants.find { |descendant| descendant.renders?(ext)  } ||
+      renderer = Base.descendants.find { |descendant| descendant.renders?(ext) } ||
         raise(RendererNotFound, "could not find a renderer for #{file}")
 
       renderer.new template
