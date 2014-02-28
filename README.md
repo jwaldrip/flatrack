@@ -1,24 +1,42 @@
-# Flat::Rack
+![Flatrack](https://raw.github.com/jwaldrip/flatrack/master/logo.png)
 
-TODO: Write a gem description
+## About
+A simple rack web layer for delivering rendered static files.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+    $ gem install flatrack
 
-    gem 'flat-rack'
+## Creating your Flatrack site
 
-And then execute:
+    $ flatrack new my-website
+    
+### Structure
 
-    $ bundle
+You should have 3 directories:
 
-Or install it yourself as:
+    - assets
+    - layouts
+    - pages
+    
+#### Assets
+Location of sprockets assets, flatrack comes with Sass and Coffeescript out of the box.
 
-    $ gem install flat-rack
+    - images
+    - javascripte
+    - stylesheets
+    
+## Running your site
 
-## Usage
+    $ flatrack start
+    
+## How it works
 
-TODO: Write usage instructions here
+Anything in `/pages` maps to a URL at `/`, root of a directory will always map to the `index.html.*` file in it.
+
+**for example**
+
+`GET /foo.html` would map to `/pages/foo.html.erb`, the erb (or any other format) is optional if you wish to render your pages dynamically.
 
 ## Contributing
 
