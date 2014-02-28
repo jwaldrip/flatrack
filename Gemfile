@@ -4,5 +4,5 @@ source 'https://rubygems.org'
 <<<<<<< Updated upstream
 gemspec
 =======
-gemspec unless ENV['RM_INFO']
+  gemspec unless ENV['RM_INFO']
 >>>>>>> Stashed changes

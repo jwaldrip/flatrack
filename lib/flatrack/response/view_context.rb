@@ -32,7 +32,7 @@ module Flatrack
 
       def javascript_tag(uri)
         uri = File.join('/assets', uri.to_s) + '.js' if uri.is_a? Symbol
-        html_tag(:script, src: uri){ nil }
+        html_tag(:script, src: uri) { nil }
       end
 
       def stylesheet_tag(uri)
@@ -41,19 +41,19 @@ module Flatrack
       end
 
       def page_stylesheet_tag
-        file = @response.send(:file_for, path.to_s)
-        base_path = File.join File.dirname(file), File.basename(file,  '.*')
+        file      = @response.send(:file_for, path.to_s)
+        base_path = File.join File.dirname(file), File.basename(file, '.*')
         stylesheet_tag base_path if stylesheet_exists?(base_path)
       end
 
       def link_to(name, link, options={})
         link = [link, options.delete(:params).to_param].join('?') if options[:params].is_a?(Hash) && options[:params].present?
-        html_tag(:a, { href: link }.merge(options) ){ name }
+        html_tag(:a, { href: link }.merge(options)) { name }
       end
 
       def html_tag(tag, options={}, &block)
         [].tap do |lines|
-          lines << "<#{tag} " + options.map{ |k, v| "#{k}=\"#{v}\"" }.join(' ') + (block_given? ? ">" : "/>")
+          lines << "<#{tag} " + options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ') + (block_given? ? ">" : "/>")
           if block_given?
             lines << yield
             lines << "</#{tag}>"

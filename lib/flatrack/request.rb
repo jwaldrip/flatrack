@@ -7,7 +7,7 @@ module Flatrack
 
     def initialize(env)
       @rack_request = Rack::Request.new(env)
-      @env = env
+      @env          = env
     end
 
     def path
