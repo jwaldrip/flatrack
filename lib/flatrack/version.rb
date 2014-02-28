@@ -1,3 +1,3 @@
 module Flatrack
-  VERSION = "1.0.0.alpha5"
+  VERSION = "0.9.0"
 end
