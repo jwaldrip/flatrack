@@ -1,4 +1,5 @@
 require 'thor'
+require 'flatrack'
 
 module Flatrack
   class CLI < Thor
@@ -7,7 +8,7 @@ module Flatrack
 
     desc 'new NAME', 'create a new flatrack site with the given name'
 
-    source_root File.join Flatrack.root, '..', 'templates'
+    source_root File.join Flatrack.gem_root, '..', 'templates'
 
     def new(name)
       @name = name.titleize
@@ -26,6 +27,13 @@ module Flatrack
       Dir.chdir(path) do
         system 'bundle install'
       end
+    end
+
+    desc 'start PORT', 'run the site on the given port'
+
+    def start(port=5959)
+      require './boot'
+      Rack::Server.start app: Flatrack::Site, Port: port
     end
 
   end

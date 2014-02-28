@@ -56,36 +56,16 @@ module Rake
     def assets
       Dir['assets/**/*.*'].map do |file|
         file_basename = File.basename file
-        file = file.split('.').tap(&:pop).join('.') if file_basename.split('.').size > 2
-        File.expand_path(file).sub(/(#{environment.paths.join('|')})\//,'')
+        parts         = file_basename.split('.').size
+        file          = file.split('.').tap(&:pop).join('.') if parts > 2
+        File.expand_path(file).sub(/(#{environment.paths.join('|')})\//, '')
       end
     end
 
     # Define tasks
     def define
-      namespace :assets do
-        desc 'precompile assets'
-        task :precompile do
-          with_logger do
-            manifest.compile(assets)
-          end
-        end
-
-        desc "Remove all assets"
-        task :clobber do
-          with_logger do
-            manifest.clobber
-          end
-        end
-
-        desc "Clean old assets"
-        task :clean do
-          with_logger do
-            manifest.clean(keep)
-          end
-        end
-
-      end
+      file = File.expand_path File.join __FILE__, '../assets.rake'
+      eval File.read file
     end
 
     private
