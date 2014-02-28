@@ -26,6 +26,12 @@ Location of sprockets assets, flatrack comes with Sass and Coffeescript out of t
     - javascripte
     - stylesheets
     
+#### Pages
+Pages are the guts of your site, this is what your users will ultimately see. Basically put your content here.
+
+#### Layouts
+Layouts are the skin of your site, its what take all those guts that your users need and crave and put them in a nice pretty layout for them to enjoy.
+    
 ## Running your site
 
     $ flatrack start
