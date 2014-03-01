@@ -4,10 +4,10 @@ module Flatrack
   Site = Rack::Builder.app do
 
     # Static Assets Should be served directly
-    use Rack::Static, urls: ["/favicon.ico", "assets"], root: "public"
+    use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
 
     Flatrack.middleware.each do |middleware|
-      use *middleware
+      use(*middleware)
     end
 
     map '/assets' do

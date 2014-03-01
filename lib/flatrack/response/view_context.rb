@@ -46,17 +46,23 @@ module Flatrack
         stylesheet_tag base_path if stylesheet_exists?(base_path)
       end
 
-      def link_to(name, link, options={})
-        link = [link, options.delete(:params).to_param].join('?') if options[:params].is_a?(Hash) && options[:params].present?
+      def link_to(name, link, options = {})
+        if options[:params].is_a?(Hash) && options[:params].present?
+          link = [link, options.delete(:params).to_param].join('?')
+        end
         html_tag(:a, { href: link }.merge(options)) { name }
       end
 
-      def html_tag(tag, options={}, &block)
+      def html_tag(tag, options = {}, &block)
         [].tap do |lines|
-          lines << "<#{tag} " + options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ') + (block_given? ? ">" : "/>")
+          tag_options = options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
+          lines << "<#{tag} #{tag_options}"
           if block_given?
+            lines.last << '>'
             lines << yield
             lines << "</#{tag}>"
+          else
+            lines.last << '/>'
           end
         end.compact.join("\n")
       end
@@ -70,7 +76,6 @@ module Flatrack
       def javascript_exists?(name)
         Flatrack.assets[name]
       end
-
     end
   end
 end

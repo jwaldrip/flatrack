@@ -1,7 +1,6 @@
 module Flatrack
   module Renderer
     class Base
-
       attr_reader :contents
 
       def self.renders(ext = nil)
@@ -15,7 +14,6 @@ module Flatrack
       def initialize(file)
         @contents = File.read file
       end
-
     end
   end
 end

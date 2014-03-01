@@ -1,6 +1,5 @@
 module Flatrack
   class Request
-
     DEFAULT_FORMAT = 'html'
 
     attr_reader :env, :rack_request
@@ -44,6 +43,5 @@ module Flatrack
     rescue FileNotFound
       Response.new(self).render(text: code, status: code)
     end
-
   end
 end

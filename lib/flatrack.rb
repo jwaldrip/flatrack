@@ -54,7 +54,7 @@ module Flatrack
   end
 
   def self.use(*args)
-    self.middleware << args
+    middleware << args
   end
 
   # By default we know how to render 'text/html'
@@ -64,6 +64,7 @@ module Flatrack
   I18n.enforce_available_locales = false
 
   # Load all renderers
-  Dir.glob(File.expand_path File.join __FILE__, '../../renderers/**/*.rb').each { |f| require f }
-
+  Dir.glob(File.join gem_root, '../../renderers/**/*.rb').each do |f|
+    require f
+  end
 end

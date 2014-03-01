@@ -1,7 +1,6 @@
 require 'flatrack/renderer/base'
 
 class Flatrack::Renderer::Rb < Flatrack::Renderer::Base
-
   renders :rb
 
   def render(context)
@@ -13,5 +12,4 @@ class Flatrack::Renderer::Rb < Flatrack::Renderer::Base
     nil while evaluator.alive?
     result
   end
-
 end

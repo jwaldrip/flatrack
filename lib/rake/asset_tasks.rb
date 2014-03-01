@@ -9,7 +9,6 @@ module Rake
   #   Rake::AssetTasks.new
   #
   class AssetTasks < Rake::TaskLib
-
     attr_reader :environment
     attr_reader :index
     attr_reader :manifest
@@ -47,7 +46,7 @@ module Rake
       @logger       = Logger.new($stderr)
       @logger.level = Logger::INFO
       @index        = environment.index
-      @output       = "./public/assets"
+      @output       = './public/assets'
       @manifest     = Sprockets::Manifest.new(index, output)
       @keep         = 2
       define
@@ -64,8 +63,28 @@ module Rake
 
     # Define tasks
     def define
-      file = File.expand_path File.join __FILE__, '../assets.rake'
-      eval File.read file
+      namespace :assets do
+        desc 'precompile assets'
+        task :precompile do
+          with_logger do
+            manifest.compile(assets)
+          end
+        end
+
+        desc 'Remove all assets'
+        task :clobber do
+          with_logger do
+            manifest.clobber
+          end
+        end
+
+        desc 'Clean old assets'
+        task :clean do
+          with_logger do
+            manifest.clean(keep)
+          end
+        end
+      end
     end
 
     private
@@ -73,7 +92,8 @@ module Rake
     # Sub out environment logger with our rake task logger that
     # writes to stderr.
     def with_logger
-      if env = manifest.environment
+      env = manifest.environment
+      if env
         old_logger = env.logger
         env.logger = @logger
       end
@@ -81,6 +101,5 @@ module Rake
     ensure
       env.logger = old_logger if env
     end
-
   end
 end

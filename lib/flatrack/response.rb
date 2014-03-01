@@ -1,6 +1,5 @@
 module Flatrack
   class Response
-
     autoload :ViewContext, 'flatrack/response/view_context'
 
     DEFAULT_FILE  = 'index'
@@ -15,15 +14,15 @@ module Flatrack
       @request = request
     end
 
-    def render(options={})
-      file, text, status, layout = options.values_at(:file, :text, :status, :layout)
+    def render(options = {})
+      type   = [:file, :text].find { |t| options[t] } || :file
+      status = options[:status]
+      layout = options[:layout] unless type == :text
+
       set_content_type
       status ||= 200
-      if text
-        render_text text, status: status
-      else
-        render_file file, status: status, layout: layout
-      end
+
+      send("render_#{type}", options[type], status: status, layout: layout)
     end
 
     def headers
@@ -40,23 +39,30 @@ module Flatrack
 
     private
 
-    def render_file(file = nil, options={})
+    def render_file(file = nil, options = {})
       status, layout = options.values_at(:status, :layout)
       layout         ||= :layout
       file           ||= file_for(request.path)
-      contents       = renderer_for(file).render(view_context)
-      contents       = layout_for(layout).render(view_context) { contents } if layout
-      self.body << contents
+      page_content   = proc { renderer_for(file).render(view_context) }
+      body << if layout
+                layout_for(layout).render(view_context, &page_content)
+              else
+                page_content.call
+              end
       [status, headers, body]
     end
 
-    def render_text(text = '', options={})
+    def render_text(text = '', options = {})
       status = options[:status]
       [status, headers, [text.to_s]]
     end
 
     def file_for(path)
-      File.directory?(File.join 'pages', path) ? File.join(path, DEFAULT_FILE) : path
+      if File.directory?(File.join 'pages', path)
+        File.join(path, DEFAULT_FILE)
+      else
+        path
+      end
     end
 
     def renderer_for(file)
@@ -70,6 +76,5 @@ module Flatrack
     def view_context
       @view_context ||= ViewContext.new(self)
     end
-
   end
 end
