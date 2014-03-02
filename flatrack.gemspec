@@ -40,4 +40,7 @@ based routing.
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
   spec.add_development_dependency 'rspec', '~> 3.0.0.beta'
+  spec.add_development_dependency 'guard', '~> 2.5'
+  spec.add_development_dependency 'guard-rspec', '~> 4.2'
+  spec.add_development_dependency 'guard-bundler', '~> 2.0'
 end
