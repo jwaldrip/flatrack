@@ -6,11 +6,16 @@ require 'flatrack/version'
 Gem::Specification.new do |spec|
 
   # Information
-  spec.name                  = "flatrack"
-  spec.version               = Flatrack::VERSION
-  spec.authors               = ["Jason Waldrip"]
-  spec.email                 = ["jason@waldrip.net"]
-  spec.summary               = 'A template based flat rack site'
+  spec.name        = "flatrack"
+  spec.version     = Flatrack::VERSION
+  spec.authors     = ["Jason Waldrip"]
+  spec.email       = ["jason@waldrip.net"]
+  spec.summary     = 'Deliver static files with style.'
+  spec.description = <<-description
+A rack based static site builder with templates, layouts and project structure
+based routing.
+
+  description
   spec.homepage              = "https://github.com/jwaldrip/flatrack"
   spec.license               = "MIT"
 
@@ -24,16 +29,15 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 1.9.3'
 
   # Dependencies
-  spec.add_dependency 'rack'
-  spec.add_dependency 'activesupport'
-  spec.add_dependency 'sass'
-  spec.add_dependency 'sprockets'
-  spec.add_dependency 'sprockets-sass'
-  spec.add_dependency 'thor'
-  spec.add_dependency 'coffee-script'
-  spec.add_dependency 'rake'
+  spec.add_runtime_dependency 'rack', '~> 1.4'
+  spec.add_runtime_dependency 'activesupport', '~> 3.2'
+  spec.add_runtime_dependency 'sass', '~> 3.2'
+  spec.add_runtime_dependency 'sprockets-sass', '~> 1.0'
+  spec.add_runtime_dependency 'thor', '~> 0.18'
+  spec.add_runtime_dependency 'coffee-script', '~> 2.2'
+  spec.add_runtime_dependency 'rake', '~> 0.8'
 
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'rspec'
+  spec.add_development_dependency 'rspec', '~> 3.0.0.beta'
 end
