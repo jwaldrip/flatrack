@@ -3,7 +3,7 @@
 
 [![Version](http://allthebadges.io/jwaldrip/flatrack/badge_fury.png)](http://allthebadges.io/jwaldrip/flatrack/badge_fury)
 [![Dependencies](http://allthebadges.io/jwaldrip/flatrack/gemnasium.png)](http://allthebadges.io/jwaldrip/flatrack/gemnasium)
-[![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png)](http://allthebadges.io/jwaldrip/flatrack/travis)
+[![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png?1)](http://allthebadges.io/jwaldrip/flatrack/travis)
 [![Coverage](http://allthebadges.io/jwaldrip/flatrack/coveralls.png)](http://allthebadges.io/jwaldrip/flatrack/coveralls)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
 
