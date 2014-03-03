@@ -1,4 +1,4 @@
-module Flatrack
+class Flatrack
   class Request
     DEFAULT_FORMAT = 'html'
 
@@ -10,7 +10,7 @@ module Flatrack
     end
 
     def path
-      env['REQUEST_PATH']
+      env['PATH_INFO']
     end
 
     def headers

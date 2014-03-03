@@ -5,7 +5,7 @@ require 'sprockets-sass'
 require 'sass'
 require 'rack'
 
-module Flatrack
+class Flatrack
   extend ActiveSupport::Autoload
 
   autoload :Renderer
@@ -20,6 +20,8 @@ module Flatrack
 
   FORMATS = {}
 
+  delegate :gem_root, :site_root, to: self
+
   def self.gem_root
     File.expand_path File.join __FILE__, '..'
   end
@@ -28,13 +30,29 @@ module Flatrack
     File.expand_path Dir.pwd
   end
 
-  def self.config(&block)
+  class << self
+
+    def delegate_instance
+      @delegate_instance ||= new
+    end
+
+    def reset!
+      @delegate_instance = nil
+    end
+
+    private
+
+    def method_missing(m, *args, &block)
+      delegate_instance.public_method(m).call(*args, &block)
+    end
+
+  end
+
+  def config(&block)
     yield self
   end
 
-  protected
-
-  def self.assets
+  def assets
     @assets ||= begin
       Sprockets::Environment.new.tap do |environment|
         environment.append_path 'assets/images'
@@ -45,15 +63,15 @@ module Flatrack
     end
   end
 
-  def self.register_format(ext, mime)
+  def register_format(ext, mime)
     FORMATS[ext.to_s] = mime
   end
 
-  def self.middleware
+  def middleware
     @middleware ||= []
   end
 
-  def self.use(*args)
+  def use(*args)
     middleware << args
   end
 
@@ -64,7 +82,7 @@ module Flatrack
   I18n.enforce_available_locales = false
 
   # Load all renderers
-  Dir.glob(File.join gem_root, '../../renderers/**/*.rb').each do |f|
+  Dir.glob(File.join gem_root, '../renderers/**/*.rb').each do |f|
     require f
   end
 end

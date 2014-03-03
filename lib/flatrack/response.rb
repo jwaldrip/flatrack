@@ -1,4 +1,4 @@
-module Flatrack
+class Flatrack
   class Response
     autoload :ViewContext, 'flatrack/response/view_context'
 

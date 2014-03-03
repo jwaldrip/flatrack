@@ -1,4 +1,4 @@
-module Flatrack
+class Flatrack
   module Renderer
     extend ActiveSupport::Autoload
 

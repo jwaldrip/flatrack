@@ -1,4 +1,4 @@
-module Flatrack
+class Flatrack
   class Response
     class ViewContext
       include AssetExtensions

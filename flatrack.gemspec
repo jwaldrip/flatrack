@@ -43,4 +43,7 @@ based routing.
   spec.add_development_dependency 'guard', '~> 2.5'
   spec.add_development_dependency 'guard-rspec', '~> 4.2'
   spec.add_development_dependency 'guard-bundler', '~> 2.0'
+  spec.add_development_dependency 'pry', '~> 0.9.12.6'
+  spec.add_development_dependency 'coveralls', '~> 0.7.0'
+  spec.add_development_dependency 'simplecov', '~> 0.8.2'
 end

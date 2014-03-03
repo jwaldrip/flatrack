@@ -1,12 +1,15 @@
 require 'thor'
 require 'flatrack'
 
-module Flatrack
+class Flatrack
   class CLI < Thor
     include FileUtils
     include Thor::Actions
 
     source_root File.join Flatrack.gem_root, '..', 'templates'
+
+    method_option :verbose, type: :boolean, default: true
+    method_option :bundle, type: :boolean, default: true
 
     desc 'new NAME', 'create a new flatrack site with the given name'
 
@@ -51,19 +54,21 @@ module Flatrack
 
     def bundle!
       Dir.chdir(destination_root) do
-        system 'bundle install'
-      end
+        cmd = 'bundle install'
+        cmd << ' --quiet' unless options[:verbose]
+        system cmd
+      end if options[:bundle]
     end
 
     def write_keeps
       KEEP_DIRS.each do |dir|
-        template '.keep', File.join(dir, '.keep')
+        template '.keep', File.join(dir, '.keep'), verbose: options[:verbose]
       end
     end
 
     def write_files
       FILES.each do |temp, dest|
-        template temp, dest
+        template temp, dest, verbose: options[:verbose]
       end
     end
   end

@@ -1,21 +1,33 @@
 require 'rack/server'
 
-module Flatrack
-  Site = Rack::Builder.app do
+class Flatrack
+  module Site
 
-    # Static Assets Should be served directly
-    use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
-
-    Flatrack.middleware.each do |middleware|
-      use(*middleware)
+    def self.call(env)
+      builder.call(env)
     end
 
-    map '/assets' do
-      run Flatrack.assets
+    private
+
+    def self.builder
+      mapping = self.mapping
+      Rack::Builder.app do
+        use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
+        Flatrack.middleware.each { |mw| use(*mw) }
+        mapping.each { |path, app| map(path) { run app } }
+      end
     end
 
-    map '/' do
-      run ->(env) { Request.new(env).response }
+    def self.site
+      ->(env) { Request.new(env).response }
     end
+
+    def self.mapping
+      {
+        '/assets' => Flatrack.assets,
+        '/'       => site
+      }
+    end
+
   end
 end

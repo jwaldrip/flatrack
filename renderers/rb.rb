@@ -4,12 +4,16 @@ class Flatrack::Renderer::Rb < Flatrack::Renderer::Base
   renders :rb
 
   def render(context)
-    result    = nil
-    evaluator = Thread.start do
-      $SAFE  = 3
-      result = eval contents, context
-    end
-    nil while evaluator.alive?
-    result
+    eval <<-RUBY, context.get_binding
+      r = nil
+      evaluator = Thread.start do
+        $SAFE  = 3
+        r = begin
+          #{contents}
+        end
+      end
+      nil while evaluator.alive?
+      r
+    RUBY
   end
 end

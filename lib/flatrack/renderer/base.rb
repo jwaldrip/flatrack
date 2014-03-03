@@ -1,4 +1,4 @@
-module Flatrack
+class Flatrack
   module Renderer
     class Base
       attr_reader :contents
