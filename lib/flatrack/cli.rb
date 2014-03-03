@@ -43,11 +43,18 @@ class Flatrack
       bundle!
     end
 
+    method_option :verbose, type: :boolean, default: true
+
     desc 'start PORT', 'run the site on the given port'
 
     def start(port = 5959)
       require './boot'
-      Rack::Server.start app: Flatrack::Site, Port: port
+      run_opts             = {}
+      run_opts[:app]       = Flatrack::Site
+      run_opts[:Port]      = port
+      run_opts[:Logger]    = Logger.new('/dev/null') unless options[:verbose]
+      run_opts[:AccessLog] = Logger.new('/dev/null') unless options[:verbose]
+      Rack::Server.start run_opts
     end
 
     private
