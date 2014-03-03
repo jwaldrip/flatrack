@@ -39,7 +39,7 @@ describe Flatrack::CLI do
       expect do
         site do
           thread  = Thread.new do
-            Flatrack::CLI.start(['start', '8282', '--verbose', 'false'])
+            Flatrack::CLI.start(['start', '--port', '8282', '--verbose', 'false'])
           end
           retries = 0
           begin

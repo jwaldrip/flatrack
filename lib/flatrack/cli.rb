@@ -8,8 +8,8 @@ class Flatrack
 
     source_root File.join Flatrack.gem_root, '..', 'templates'
 
-    method_option :verbose, type: :boolean, default: true
-    method_option :bundle, type: :boolean, default: true
+    method_option :verbose, type: :boolean, default: true, aliases: :v
+    method_option :bundle, type: :boolean, default: true, aliases: :b
 
     desc 'new NAME', 'create a new flatrack site with the given name'
 
@@ -43,15 +43,16 @@ class Flatrack
       bundle!
     end
 
-    method_option :verbose, type: :boolean, default: true
+    method_option :verbose, type: :boolean, default: true, aliases: :v
+    method_option :port, type: :numeric, default: 5959, aliases: :p
 
     desc 'start PORT', 'run the site on the given port'
 
-    def start(port = 5959)
+    def start
       require './boot'
       run_opts             = {}
       run_opts[:app]       = Flatrack::Site
-      run_opts[:Port]      = port
+      run_opts[:Port]      = options[:port]
       run_opts[:Logger]    = Logger.new('/dev/null') unless options[:verbose]
       run_opts[:AccessLog] = Logger.new('/dev/null') unless options[:verbose]
       Rack::Server.start run_opts
