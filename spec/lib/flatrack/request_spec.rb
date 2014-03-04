@@ -3,19 +3,19 @@ require 'spec_helper'
 describe Flatrack::Request do
   include SiteHelper
 
-  describe 'render' do
-    it 'should render a page with a layout' do
+  describe '#response' do
+    it 'should return a 404 for page not found' do
       site do
-        status, headers, body = get_page_response('index')
-        expect(status).to eq 200
+        status, headers, body = get_page_response('cant_find_me')
+        expect(status).to eq 404
       end
     end
 
     it 'should render a page without a layout' do
       site do
-        rm_rf 'layouts/layout.html.erb'
-        status, headers, body = get_page_response('index')
-        expect(status).to eq 200
+        touch 'pages/bad_renderer.html.bad'
+        status, headers, body = get_page_response('bad_renderer')
+        expect(status).to eq 500
       end
     end
   end

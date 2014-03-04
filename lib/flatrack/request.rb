@@ -13,13 +13,6 @@ class Flatrack
       env['PATH_INFO']
     end
 
-    def headers
-      env.reduce({}) do |hash, (key, value)|
-        next hash unless /^HTTP_(?<name>.+)/ =~ key
-        hash.merge name.downcase.to_sym => value
-      end
-    end
-
     def params
       rack_request.params.with_indifferent_access
     end

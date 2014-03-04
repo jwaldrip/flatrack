@@ -26,17 +26,17 @@ class Flatrack
       end
 
       def image_tag(uri, options = {})
-        uri = File.join('/assets', uri.to_s) + '.js' if uri.is_a? Symbol
+        uri = asset_path(uri)
         html_tag(:img, { src: uri }.merge(options))
       end
 
       def javascript_tag(uri)
-        uri = File.join('/assets', uri.to_s) + '.js' if uri.is_a? Symbol
+        uri = asset_path(uri) + '.js' if uri.is_a? Symbol
         html_tag(:script, src: uri) { nil }
       end
 
       def stylesheet_tag(uri)
-        uri = File.join('/assets', uri.to_s) + '.css' if uri.is_a? Symbol
+        uri = asset_path(uri) + '.css' if uri.is_a? Symbol
         html_tag(:link, rel: 'stylesheet', type: 'text/css', href: uri)
       end
 
