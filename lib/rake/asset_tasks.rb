@@ -9,10 +9,10 @@ module Rake
   #   Rake::AssetTasks.new
   #
   class AssetTasks < Rake::TaskLib
-    attr_reader :environment
+    attr_accessor :output
+    attr_accessor :environment
     attr_reader :index
     attr_reader :manifest
-    attr_reader :output
     attr_reader :keep
 
     # Number of old assets to keep.
@@ -45,8 +45,9 @@ module Rake
       @environment  = Flatrack.assets
       @logger       = Logger.new($stderr)
       @logger.level = Logger::INFO
-      @index        = environment.index
       @output       = './public/assets'
+      yield self
+      @index        = environment.index
       @manifest     = Sprockets::Manifest.new(index, output)
       @keep         = 2
       define
