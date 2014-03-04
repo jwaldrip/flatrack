@@ -2,7 +2,7 @@ module SiteHelper
   extend FileUtils
   include FileUtils
 
-  DIR = File.join Flatrack.gem_root, 'tmp/flatrack-sites'
+  DIR = File.join Flatrack.gem_root, '../tmp/flatrack-sites'
   mkdir_p DIR
 
   def site

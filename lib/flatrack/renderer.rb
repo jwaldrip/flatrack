@@ -5,7 +5,7 @@ class Flatrack
     autoload :Base
 
     def find(file)
-      template = [*pages(file), *layouts(file)].first
+      template = File.exists?(file) ? file : [*pages(file), *layouts(file)][0]
       fail FileNotFound, "could not find #{file}" unless template
       ext = File.extname(template).sub(/\./, '')
 
