@@ -11,18 +11,10 @@ class Flatrack
         binding(&block)
       end
 
-      def path
-        @response.request.path
-      end
-
-      def params
-        @response.request.params
-      end
-
-      def files
-        Dir.glob(File.join 'pages', path, '*').map do |file|
-          File.basename File.basename(file, '.*'), '.*'
-        end - [DEFAULT_FILE]
+      def html_tag(tag, options = {}, &block)
+        meta   = options.map { |k, v| "#{k}=\"#{v}\"" }
+        prefix = [tag, *meta].join(' ')
+        "<#{prefix}" + (block_given? ? ">#{yield}</#{tag}>" : '/>')
       end
 
       def image_tag(uri, options = {})
@@ -35,47 +27,37 @@ class Flatrack
         html_tag(:script, src: uri) { nil }
       end
 
+      def link_to(link_or_name, link_or_options=nil, options={})
+        name = link_or_name
+        link, options = if link_or_options.is_a?(Hash)
+                          [name, link_or_options]
+                        else
+                          [link_or_options, options]
+                        end
+
+        html_tag(:a, link_to_options(link, options)) { name }
+      end
+
+      def params
+        @response.request.params
+      end
+
+      def path
+        @response.request.path
+      end
+
       def stylesheet_tag(uri)
         uri = asset_path(uri) + '.css' if uri.is_a? Symbol
         html_tag(:link, rel: 'stylesheet', type: 'text/css', href: uri)
       end
 
-      def page_stylesheet_tag
-        file      = @response.send(:file_for, path.to_s)
-        base_path = File.join File.dirname(file), File.basename(file, '.*')
-        stylesheet_tag base_path if stylesheet_exists?(base_path)
-      end
-
-      def link_to(name, link, options = {})
-        if options[:params].is_a?(Hash) && options[:params].present?
-          link = [link, options.delete(:params).to_param].join('?')
-        end
-        html_tag(:a, { href: link }.merge(options)) { name }
-      end
-
-      def html_tag(tag, options = {}, &block)
-        [].tap do |lines|
-          tag_options = options.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
-          lines << "<#{tag} #{tag_options}"
-          if block_given?
-            lines.last << '>'
-            lines << yield
-            lines << "</#{tag}>"
-          else
-            lines.last << '/>'
-          end
-        end.compact.join("\n")
-      end
-
       private
 
-      def stylesheet_exists?(name)
-        Flatrack.assets[name]
+      def link_to_options(link, opts={})
+        link << '?' + opts.delete(:params).to_param if opts[:params].present?
+        { href: link }.merge(opts)
       end
 
-      def javascript_exists?(name)
-        Flatrack.assets[name]
-      end
     end
   end
 end
