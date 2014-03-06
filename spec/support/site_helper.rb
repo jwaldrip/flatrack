@@ -5,7 +5,7 @@ module SiteHelper
   DIR = File.join Flatrack.gem_root, '../tmp/flatrack-sites'
   mkdir_p DIR
 
-  def site
+  def site(clean: true)
     sha = SecureRandom.hex
     in_temp_sites do
       Flatrack::CLI.start(
@@ -15,7 +15,7 @@ module SiteHelper
         yield
       end
     end
-    cleanup sha
+    clean ? cleanup(sha) : sha
   rescue => error
     cleanup sha
     raise error

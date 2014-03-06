@@ -10,10 +10,12 @@ module Rake
   #
   class AssetTasks < Rake::TaskLib
     attr_accessor :output
-    attr_accessor :environment
+    attr_reader :environment
     attr_reader :index
     attr_reader :manifest
     attr_reader :keep
+
+    delegate :paths, to: :environment
 
     # Number of old assets to keep.
 
@@ -46,15 +48,16 @@ module Rake
       @logger       = Logger.new($stderr)
       @logger.level = Logger::INFO
       @output       = './public/assets'
-      yield self
-      @index        = environment.index
-      @manifest     = Sprockets::Manifest.new(index, output)
-      @keep         = 2
+      yield self if block_given?
+      @index    = environment.index
+      @manifest = Sprockets::Manifest.new(index, output)
+      @keep     = 2
       define
     end
 
     def assets
-      Dir['assets/**/*.*'].map do |file|
+      files = paths.reduce([]) { |a, p| a + Dir[File.join p, '**', '*'] }
+      files.map do |file|
         file_basename = File.basename file
         parts         = file_basename.split('.').size
         file          = file.split('.').tap(&:pop).join('.') if parts > 2

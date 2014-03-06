@@ -2,6 +2,7 @@ require 'flatrack/version'
 require 'active_support/all'
 require 'sprockets'
 require 'sprockets-sass'
+require 'coffee-script'
 require 'sass'
 require 'rack'
 
