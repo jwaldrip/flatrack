@@ -12,7 +12,7 @@ describe Flatrack::Renderer::Rb do
   it 'should render properly' do
     sha = SecureRandom.hex
     site do
-      write_page("#{sha}.html.rb", template)
+      write(:page, "#{sha}.html.rb", template)
       status, headers, body = get_page_response(sha)
       expect(body.first).to include 'Hello World'.reverse
     end

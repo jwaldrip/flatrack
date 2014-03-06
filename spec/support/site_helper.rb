@@ -27,8 +27,8 @@ module SiteHelper
     end
   end
 
-  def write_page(filename, contents)
-    Dir.chdir('pages') do
+  def write(type, filename, contents)
+    Dir.chdir(type.to_s.pluralize) do
       File.open(filename, 'w') do |file|
         file.write(contents)
       end
