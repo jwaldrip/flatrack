@@ -35,15 +35,15 @@ based routing.
   spec.add_runtime_dependency 'sprockets-sass', '~> 1.0'
   spec.add_runtime_dependency 'thor', '~> 0.18'
   spec.add_runtime_dependency 'coffee-script', '~> 2.2'
-  spec.add_runtime_dependency 'rake', '~> 0.8'
+  spec.add_runtime_dependency 'rake', ['> 0.8.7', '< 10.2']
 
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'rspec', '~> 3.0.0.beta'
+  spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'guard', '~> 2.5'
   spec.add_development_dependency 'guard-rspec', '~> 4.2'
   spec.add_development_dependency 'guard-bundler', '~> 2.0'
-  spec.add_development_dependency 'pry', '~> 0.9.12.6'
-  spec.add_development_dependency 'coveralls', '~> 0.7.0'
-  spec.add_development_dependency 'simplecov', '~> 0.8.2'
+  spec.add_development_dependency 'pry', '~> 0.9'
+  spec.add_development_dependency 'coveralls', '~> 0.7'
+  spec.add_development_dependency 'simplecov', '~> 0.8'
 end
