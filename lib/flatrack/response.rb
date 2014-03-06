@@ -23,10 +23,10 @@ class Flatrack
     end
 
     def render(file: file_for(request.path), status: 200, layout: :layout)
-      page_content = proc { renderer_for(file).render(view_context) }
+      page_content = proc { renderer_for_page(file).render(view_context) }
       set_content_type
       body << begin
-        layout_for(layout).render(view_context, &page_content)
+        renderer_for_layout(layout).render(view_context, &page_content)
       rescue Flatrack::FileNotFound
         page_content.call
       end
@@ -47,12 +47,12 @@ class Flatrack
       end
     end
 
-    def renderer_for(file)
-      Renderer.find file
+    def renderer_for_page(file)
+      Renderer.find :page, file
     end
 
-    def layout_for(file)
-      Renderer.find File.join("#{file}.#{request.format}")
+    def renderer_for_layout(file)
+      Renderer.find :layout, File.join("#{file}.#{request.format}")
     end
 
     def view_context

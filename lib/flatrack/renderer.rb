@@ -4,11 +4,10 @@ class Flatrack
 
     autoload :Base
 
-    def find(file)
-      template = File.exists?(file) ? file : [*pages(file), *layouts(file)][0]
+    def find(type, file)
+      template = find_by_type type, file
       fail FileNotFound, "could not find #{file}" unless template
       ext = File.extname(template).sub(/\./, '')
-
       renderer = Base.descendants.find do |descendant|
         descendant.renders?(ext)
       end || fail(RendererNotFound, "could not find a renderer for #{file}")
@@ -18,14 +17,14 @@ class Flatrack
 
     private
 
-    def pages(file)
-      Dir[File.join 'pages', "#{file}*"]
+    def find_by_type(type, file)
+      if File.exists?(file)
+        file
+      else
+        Dir[File.join type.to_s.pluralize, "#{file}*"].first
+      end
     end
 
-    def layouts(file)
-      Dir[File.join 'layouts', "#{file}*"]
-    end
-
-    module_function :find, :pages, :layouts
+    module_function :find, :find_by_type
   end
 end
