@@ -1,3 +1,9 @@
+# Flatrack 1.1.1 (March 05, 2014)
+
+*   Fix gem build errors, and update dependencies.
+
+    *Jason Waldrip*
+
 # Flatrack 1.1.0 (March 05, 2014)
 
 *   Added support for rendering partials in views
