@@ -1,4 +1,4 @@
-# Flatrack 1.1.1 (March 05, 2014)
+# Flatrack 1.1.1 (March 06, 2014)
 
 *   Fix gem build errors, and update dependencies.
 
