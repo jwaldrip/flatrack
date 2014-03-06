@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Flatrack::Response::ViewContext do
+  include SiteHelper
 
   let(:uri) { URI.parse 'http://example.org/index.html' }
   let(:env){ Rack::MockRequest.env_for uri.to_s }
@@ -63,6 +64,22 @@ describe Flatrack::Response::ViewContext do
   describe '#path' do
     it 'should be extracted from the uri path' do
       expect(view.path).to eq uri.path
+    end
+  end
+
+  describe '#render' do
+    let(:template) do
+      <<-ERB
+<%= 'Hello World'.reverse %>
+      ERB
+    end
+
+    it 'should properly render a partial' do
+      site do
+        write(:partial, 'sample.erb', template)
+        result = view.render(:sample)
+        expect(result).to include 'Hello World'.reverse
+      end
     end
   end
 

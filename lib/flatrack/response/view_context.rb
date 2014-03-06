@@ -46,6 +46,10 @@ class Flatrack
         @response.request.path
       end
 
+      def render(file)
+        Renderer.find(:partial, file.to_s).render(self)
+      end
+
       def stylesheet_tag(uri)
         uri = asset_path(uri) + '.css' if uri.is_a? Symbol
         html_tag(:link, rel: 'stylesheet', type: 'text/css', href: uri)

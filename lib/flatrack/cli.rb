@@ -18,7 +18,8 @@ class Flatrack
       'assets/javascripts',
       'assets/images',
       'pages',
-      'layouts'
+      'layouts',
+      'partials'
     ]
 
     FILES = {
