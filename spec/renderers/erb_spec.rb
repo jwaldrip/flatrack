@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Flatrack::Renderer::ERB do
-  include SiteHelper
+describe 'erb' do
+  include Flatrack::SiteHelper
 
   let(:template) do
   <<-ERB

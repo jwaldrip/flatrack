@@ -6,7 +6,7 @@ class Flatrack
     include FileUtils
     include Thor::Actions
 
-    source_root File.join Flatrack.gem_root, '..', 'templates'
+    source_root File.join Flatrack.gem_root, 'flatrack/cli/templates'
 
     method_option :verbose, type: :boolean, default: true, aliases: :v
     method_option :bundle, type: :boolean, default: true, aliases: :b

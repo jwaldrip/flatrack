@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Flatrack::Response do
-  include SiteHelper
+  include Flatrack::SiteHelper
 
   describe '#render' do
     it 'should render a page with a layout' do

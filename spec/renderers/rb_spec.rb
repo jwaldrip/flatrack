@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Flatrack::Renderer::Rb do
-  include SiteHelper
+describe 'rb' do
+  include Flatrack::SiteHelper
 
   let(:template) do
     <<-RUBY

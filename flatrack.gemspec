@@ -30,12 +30,15 @@ based routing.
 
   # Dependencies
   spec.add_runtime_dependency 'rack', '~> 1.4'
+  spec.add_runtime_dependency 'erubis', '~> 2.7.0'
+  spec.add_runtime_dependency 'tilt', '~> 1.1'
   spec.add_runtime_dependency 'activesupport', ['> 3.2', '< 4.2']
   spec.add_runtime_dependency 'sass', '~> 3.2'
-  spec.add_runtime_dependency 'sprockets-sass', '~> 1.0'
+  spec.add_runtime_dependency 'sprockets-sass', '~> 1.0.3'
   spec.add_runtime_dependency 'thor', '~> 0.18'
   spec.add_runtime_dependency 'coffee-script', '~> 2.2'
   spec.add_runtime_dependency 'rake', ['> 0.8.7', '< 10.2']
+  spec.add_runtime_dependency 'actionview', ['> 3.2', '< 4.2']
 
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
@@ -46,4 +49,6 @@ based routing.
   spec.add_development_dependency 'pry', '~> 0.9'
   spec.add_development_dependency 'coveralls', '~> 0.7'
   spec.add_development_dependency 'simplecov', '~> 0.8'
+  spec.add_development_dependency 'rubocop', '~> 0.18.1'
+  spec.add_development_dependency 'inch', '~> 0.3.2'
 end

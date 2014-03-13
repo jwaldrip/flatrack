@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Flatrack::Renderer::Html do
-  include SiteHelper
+describe 'html' do
+  include Flatrack::SiteHelper
 
   let(:template) do
     <<-HTML

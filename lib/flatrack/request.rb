@@ -23,7 +23,7 @@ class Flatrack
 
     def response
       Response.new(self).render
-    rescue RendererNotFound
+    rescue TemplateNotFound
       respond_with_error(500)
     rescue FileNotFound
       respond_with_error(404)
@@ -34,7 +34,7 @@ class Flatrack
     def respond_with_error(code)
       Response.new(self).render(file: "#{code}.html", status: code)
     rescue FileNotFound
-      file = File.join Flatrack.gem_root, '../templates', "#{code}.html"
+      file = File.join Flatrack.gem_root, '../error_pages', "#{code}.html"
       Response.new(self).render(file: file, status: code)
     end
   end

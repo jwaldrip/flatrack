@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Flatrack::Response::ViewContext do
-  include SiteHelper
+describe Flatrack::View do
+  include Flatrack::SiteHelper
 
   let(:uri) { URI.parse 'http://example.org/index.html' }
   let(:env){ Rack::MockRequest.env_for uri.to_s }
@@ -21,7 +21,7 @@ describe Flatrack::Response::ViewContext do
   end
 
   describe '#get_binding' do
-    it 'should yield to the view_context' do
+    it 'should yield to the view' do
       view.get_binding do
         expect(self.class).to be_a described_class
       end
@@ -45,12 +45,12 @@ describe Flatrack::Response::ViewContext do
   describe '#link_to' do
     it 'should be a proper link tag with a name' do
       expect(view.link_to 'test', '/test.html', params: { foo: 'bar' }, class: 'test')
-      .to eq "<a href=\"/test.html?foo=bar\" class=\"test\">test</a>"
+      .to eq "<a class=\"test\" href=\"/test.html?foo=bar\">test</a>"
     end
 
     it 'should be a proper link tag without a name' do
       expect(view.link_to '/test.html', params: { foo: 'bar' }, class: 'test')
-      .to eq "<a href=\"/test.html?foo=bar\" class=\"test\">/test.html?foo=bar</a>"
+      .to eq "<a class=\"test\" href=\"/test.html?foo=bar\">/test.html?foo=bar</a>"
     end
   end
 
@@ -86,7 +86,7 @@ describe Flatrack::Response::ViewContext do
   describe '#stylesheet_tag' do
     it 'should be a proper stylesheet tag' do
       expect(view.stylesheet_tag :test)
-      .to eq "<link rel=\"stylesheet\" type=\"text/css\" href=\"/assets/test.css\"/>"
+      .to eq "<link href=\"/assets/test.css\" rel=\"stylesheet\" type=\"text/css\"/>"
     end
   end
 

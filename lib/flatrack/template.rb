@@ -1,18 +1,16 @@
-class Flatrack
-  module Renderer
-    extend ActiveSupport::Autoload
+require 'tilt'
+require 'flatrack/template/rb'
 
-    autoload :Base
+class Flatrack
+  module Template
+    extend ActiveSupport::Autoload
 
     def find(type, file)
       template = find_by_type type, file
       fail FileNotFound, "could not find #{file}" unless template
-      ext = File.extname(template).sub(/\./, '')
-      renderer = Base.descendants.find do |descendant|
-        descendant.renders?(ext)
-      end || fail(RendererNotFound, "could not find a renderer for #{file}")
-
-      renderer.new template
+      Tilt.new(template)
+    rescue RuntimeError
+      raise(TemplateNotFound, "could not find a renderer for #{file}")
     end
 
     private
