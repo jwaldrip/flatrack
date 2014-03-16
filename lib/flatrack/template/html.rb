@@ -3,7 +3,7 @@ class Flatrack
     class Html < Tilt::PlainTemplate
 
       def evaluate(scope, locals, &block)
-        @output ||= data.html_safe
+        super.html_safe
       end
 
     end
