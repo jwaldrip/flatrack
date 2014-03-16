@@ -1,6 +1,7 @@
 require 'tilt'
 require 'flatrack/template/erubis'
 require 'flatrack/template/rb'
+require 'flatrack/template/html'
 
 class Flatrack
   module Template

@@ -12,7 +12,7 @@ describe 'html' do
   it 'should render properly' do
     sha = SecureRandom.hex
     site do
-      write(:page, "#{sha}.html.html", template)
+      write(:page, "#{sha}.html", template)
       status, headers, body = get_page_response(sha)
       expect(body.first).to include template
     end
