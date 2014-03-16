@@ -1,14 +1,14 @@
 require 'tilt'
+require 'flatrack/template/erubis'
 require 'flatrack/template/rb'
 
 class Flatrack
   module Template
-    extend ActiveSupport::Autoload
 
     def find(type, file)
       template = find_by_type type, file
       fail FileNotFound, "could not find #{file}" unless template
-      Tilt.new(template)
+      Tilt.new template
     rescue RuntimeError
       raise(TemplateNotFound, "could not find a renderer for #{file}")
     end

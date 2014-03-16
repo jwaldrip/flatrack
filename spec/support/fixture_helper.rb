@@ -5,7 +5,7 @@ class Flatrack
 
     def render_template(fixture)
       path = File.join Flatrack.gem_root, '../spec/fixtures/templates', fixture
-      view.render path
+      view.render(path).lines.map(&:strip).join
     end
 
     private

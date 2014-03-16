@@ -1,6 +1,3 @@
-require 'action_view/buffers'
-require 'action_view/helpers/capture_helper'
-
 class Flatrack
   class View
     extend ActiveSupport::Autoload
@@ -8,18 +5,21 @@ class Flatrack
     autoload :TagHelper
     autoload :LinkHelper
     autoload :RequestHelper
+    autoload :CaptureHelper
+    autoload :OutputBuffer
 
     include AssetExtensions
     include TagHelper
     include LinkHelper
     include RequestHelper
-    include ActionView::Helpers::CaptureHelper
-
-    attr_accessor :output_buffer
+    include CaptureHelper
 
     def initialize(response)
       @response = response
+      @output_buffer = OutputBuffer.new
     end
+
+    attr_accessor :output_buffer
 
     def get_binding(&block)
       binding(&block)

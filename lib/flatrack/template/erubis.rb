@@ -1,89 +1,41 @@
-require 'erubis'
-
-module Flatrack
+class Flatrack
   module Template
     class Erubis < Tilt::ErubisTemplate
-
-      class ErubisHandler < ::Erubis::Eruby
-        def add_preamble(src)
-          @newline_pending = 0
-          src << "@output_buffer = output_buffer || View::OutputBuffer.new;"
-        end
-
-        def add_text(src, text)
-          return if text.empty?
-          if text == "\n"
-            @newline_pending += 1
-          else
-            src << "@output_buffer.safe_append='"
-            src << "\n" * @newline_pending if @newline_pending > 0
-            src << escape_text(text)
-            src << "'.freeze;"
-            @newline_pending = 0
-          end
-        end
-
-        # Erubis toggles <%= and <%== behavior when escaping is enabled.
-        # We override to always treat <%== as escaped.
-        def add_expr(src, code, indicator)
-          case indicator
-          when '=='
-            add_expr_escaped(src, code)
-          else
-            super
-          end
-        end
-
-        BLOCK_EXPR = /\s+(do|\{)(\s*\|[^|]*\|)?\s*\Z/
-
-        def add_expr_literal(src, code)
-          flush_newline_if_pending(src)
-          if code =~ BLOCK_EXPR
-            src << '@output_buffer.append= ' << code
-          else
-            src << '@output_buffer.append=(' << code << ');'
-          end
-        end
-
-        def add_expr_escaped(src, code)
-          flush_newline_if_pending(src)
-          if code =~ BLOCK_EXPR
-            src << "@output_buffer.safe_append= " << code
-          else
-            src << "@output_buffer.safe_append=(" << code << ");"
-          end
-        end
-
-        def add_stmt(src, code)
-          flush_newline_if_pending(src)
-          super
-        end
-
-        def add_postamble(src)
-          flush_newline_if_pending(src)
-          src << '@output_buffer.to_s'
-        end
-
-        def flush_newline_if_pending(src)
-          if @newline_pending > 0
-            src << "@output_buffer.safe_append='#{"\n" * @newline_pending}'.freeze;"
-            @newline_pending = 0
-          end
-        end
-      end
+      extend ActiveSupport::Autoload
+      autoload :Handler
 
       def self.engine_initialized?
-        defined? ErubisHandler
+        defined? Handler
       end
 
       def prepare
-        @outvar = options.delete(:outvar) || self.class.default_output_variable
+        @outvar = :output_buffer
         @options.merge!(trim: true)
-        @engine = ErubisHandler.new(data, options)
+        @engine = Handler.new(data, options)
       end
 
     end
   end
 end
 
-Tilt.prefer Flatrack::Template::ErubisTemplate, 'erb'
+Tilt.prefer Flatrack::Template::Erubis, 'erb'
+
+__END__
+
+@output_buffer.concat(link_to('example', 'http://example1.org')).html_safe
+@output_buffer.concat(''.freeze)
+@output_buffer.concat(link_to('http://example2.org')).html_safe
+@output_buffer.concat(''.freeze)
+@output_buffer << link_to('http://example3.org') do
+  @output_buffer.concat('Hello World').html_safe.freeze
+end
+@output_buffer << link_to('http://example4.org') do
+  @output_buffer.concat('').html_safe.freeze
+  @output_buffer.concat(image_tag('http://example.org/sample.jpg')).html_safe
+  @output_buffer.concat(''.freeze)
+end
+@output_buffer << link_to('http://example5.org') do
+  @output_buffer.concat('').html_safe.freeze
+  @output_buffer.concat(image_tag('sample.jpg')).html_safe; @output_buffer.concat(''.freeze)
+end
+output_buffer = @output_buffer.to_s

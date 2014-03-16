@@ -1,11 +1,12 @@
 class Flatrack
   class View
     module LinkHelper
+      include TagHelper
 
       def link_to(name = nil, options = nil, html_options = nil, &block)
         if block_given?
           href, options, block = name, options, block
-        elsif options.is_a?(Hash)
+        elsif options.is_a?(Hash) || options.blank?
           name, href, options, block = name, name, options, block
         else
           name, href, options, block = name, options, html_options, block

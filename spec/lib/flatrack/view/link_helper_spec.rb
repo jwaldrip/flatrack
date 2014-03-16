@@ -3,20 +3,23 @@ require 'spec_helper'
 describe Flatrack::View::LinkHelper do
   include Flatrack::FixtureHelper
 
-  context 'using erb' do
-    describe '#link_to' do
+  describe '#link_to' do
+
+    context 'using erb' do
       it 'should properly render' do
-        # content = render_template 'link_to.html.erb'
+        template_content = render_template 'link_to.html.erb'
+        expected_content = render_template 'link_to.html'
+        expect(template_content).to eq expected_content
       end
     end
-  end
 
-  context 'using rb' do
-    describe '#link_to' do
-      #it 'should properly render' do
-      #  render_template
-      #end
+    context 'using rb' do
+      it 'should properly render' do
+        template_content = render_template 'link_to.html.rb'
+        expected_content = render_template 'link_to.html'
+        expect(template_content).to eq expected_content
+      end
     end
-  end
 
+  end
 end

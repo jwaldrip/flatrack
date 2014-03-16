@@ -3,6 +3,7 @@ $LOAD_PATH.unshift File.expand_path File.dirname(__FILE__)
 require 'simplecov'
 require 'coveralls'
 require 'pry'
+require 'nokogiri'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
   SimpleCov::Formatter::HTMLFormatter,

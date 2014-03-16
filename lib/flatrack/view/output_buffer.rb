@@ -7,8 +7,6 @@ class Flatrack
         encode!
       end
 
-      private
-
       def <<(value)
         return self if value.nil?
         super(value.to_s)

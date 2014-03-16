@@ -1,7 +1,7 @@
 class Flatrack
   class View
     module TagHelper
-      include ActionView::Helpers::CaptureHelper
+      include CaptureHelper
 
       PRE_CONTENT_STRINGS = {
         :textarea => "\n"
@@ -65,7 +65,7 @@ class Flatrack
             attrs << tag_option(key, value, escape)
           end
         end
-        " #{attrs.sort! * ' '}" unless attrs.empty?
+        " #{attrs.sort! * ' '}" unless attrs.blank?
       end
 
       def data_tag_option(key, value, escape)
