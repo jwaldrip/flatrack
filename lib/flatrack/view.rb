@@ -6,6 +6,7 @@ class Flatrack
     autoload :LinkHelper
     autoload :RequestHelper
     autoload :CaptureHelper
+    autoload :RenderHelper
     autoload :OutputBuffer
 
     include AssetExtensions
@@ -13,16 +14,13 @@ class Flatrack
     include LinkHelper
     include RequestHelper
     include CaptureHelper
+    include RenderHelper
 
     attr_accessor :output_buffer
 
     def initialize(response)
       @response = response
       @output_buffer = OutputBuffer.new
-    end
-
-    def render(file)
-      Template.find(:partial, file.to_s).render(self)
     end
 
   end
