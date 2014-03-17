@@ -14,15 +14,11 @@ class Flatrack
     include RequestHelper
     include CaptureHelper
 
+    attr_accessor :output_buffer
+
     def initialize(response)
       @response = response
       @output_buffer = OutputBuffer.new
-    end
-
-    attr_accessor :output_buffer
-
-    def get_binding(&block)
-      binding(&block)
     end
 
     def render(file)

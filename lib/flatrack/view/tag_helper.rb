@@ -31,7 +31,7 @@ class Flatrack
 
       def javascript_tag(uri)
         uri = asset_path(uri) + '.js' if uri.is_a? Symbol
-        html_tag(:script, '', src: uri)
+        html_tag(:script, '', src: uri, type: 'application/javascript')
       end
 
       def stylesheet_tag(uri)
@@ -59,11 +59,12 @@ class Flatrack
             value.each_pair do |k, v|
               attrs << data_tag_option(k, v, escape)
             end
-          elsif BOOLEAN_ATTRIBUTES.include?(key)
+          elsif BOOLEAN_ATTRIBUTES.include?(key.to_s)
             attrs << boolean_tag_option(key) if value
           elsif !value.nil?
             attrs << tag_option(key, value, escape)
           end
+          attrs
         end
         " #{attrs.sort! * ' '}" unless attrs.blank?
       end
