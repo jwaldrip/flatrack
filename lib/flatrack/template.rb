@@ -17,7 +17,7 @@ class Flatrack
     private
 
     def find_by_type(type, file)
-      if File.exists?(file)
+      if File.exist?(file)
         file
       else
         Dir[File.join type.to_s.pluralize, "#{file}*"].first
