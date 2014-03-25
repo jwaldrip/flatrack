@@ -1,10 +1,10 @@
-![Flatrack](https://raw.github.com/jwaldrip/flatrack/master/logo.png)
+![Flatrack](https://raw.github.com/jwaldrip/flatrack/master/lib/flatrack/cli/templates/logo.png)
 --
 
 [![Version](http://allthebadges.io/jwaldrip/flatrack/badge_fury.png)](http://allthebadges.io/jwaldrip/flatrack/badge_fury)
 [![Dependencies](http://allthebadges.io/jwaldrip/flatrack/gemnasium.png)](http://allthebadges.io/jwaldrip/flatrack/gemnasium)
 [![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png)](http://allthebadges.io/jwaldrip/flatrack/travis)
-[![Coverage](http://allthebadges.io/jwaldrip/flatrack/coveralls.png?1)](http://allthebadges.io/jwaldrip/flatrack/coveralls)
+[![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
 
 ## About
@@ -50,6 +50,18 @@ Anything in `/pages` maps to a URL at `/`, root of a directory will always map t
 **for example**
 
 `GET /foo.html` would map to `/pages/foo.html.erb`, the erb (or any other format) is optional if you wish to render your pages dynamically.
+
+## Templating Support
+
+### Built in
+
+* HTML
+* ERB
+* Ruby Evaluated Output
+
+### Extensions
+
+* [Haml](https://github.com/jwaldrip/haml-flatrack)
 
 ## Contributing
 

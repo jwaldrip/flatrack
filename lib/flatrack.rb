@@ -9,14 +9,15 @@ require 'rack'
 class Flatrack
   extend ActiveSupport::Autoload
 
-  autoload :Renderer
+  autoload :View
+  autoload :Template
   autoload :Request
   autoload :Response
   autoload :Site
   autoload :AssetExtensions
   autoload :CLI
 
-  RendererNotFound = Class.new StandardError
+  TemplateNotFound = Class.new StandardError
   FileNotFound     = Class.new StandardError
 
   FORMATS = {}
@@ -82,8 +83,4 @@ class Flatrack
   # Fix Locales issue
   I18n.enforce_available_locales = false
 
-  # Load all renderers
-  Dir.glob(File.join gem_root, '../renderers/**/*.rb').each do |f|
-    require f
-  end
 end

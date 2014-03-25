@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Flatrack::CLI do
   extend FileUtils
-  include SiteHelper
+  include Flatrack::SiteHelper
 
   describe '#new' do
     it 'should create a new site' do

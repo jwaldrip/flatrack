@@ -1,0 +1,2 @@
+stylesheet_tag('http://example.com/example.css') +
+ stylesheet_tag(:main)

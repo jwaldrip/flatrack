@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Flatrack::Request do
-  include SiteHelper
+  include Flatrack::SiteHelper
 
   describe '#response' do
     it 'should return a 404 for page not found' do

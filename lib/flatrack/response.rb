@@ -1,6 +1,5 @@
 class Flatrack
   class Response
-    autoload :ViewContext, 'flatrack/response/view_context'
 
     DEFAULT_FILE  = 'index'
     CONTENT_TYPES = {
@@ -23,10 +22,10 @@ class Flatrack
     end
 
     def render(file: file_for(request.path), status: 200, layout: :layout)
-      page_content = proc { renderer_for_page(file).render(view_context) }
+      page_content = proc { renderer_for_page(file).render(view) }
       set_content_type
       body << begin
-        renderer_for_layout(layout).render(view_context, &page_content)
+        renderer_for_layout(layout).render(view, &page_content)
       rescue Flatrack::FileNotFound
         page_content.call
       end
@@ -48,15 +47,15 @@ class Flatrack
     end
 
     def renderer_for_page(file)
-      Renderer.find :page, file
+      Template.find :page, file
     end
 
     def renderer_for_layout(file)
-      Renderer.find :layout, File.join("#{file}.#{request.format}")
+      Template.find :layout, File.join("#{file}.#{request.format}")
     end
 
-    def view_context
-      @view_context ||= ViewContext.new(self)
+    def view
+      @view ||= View.new(self)
     end
   end
 end

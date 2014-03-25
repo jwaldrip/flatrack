@@ -4,7 +4,7 @@ require 'rake/asset_tasks'
 
 describe Rake::AssetTasks do
   include FileUtils
-  include SiteHelper
+  include Flatrack::SiteHelper
 
   before(:all) do
     @sha = site(clean: false) do

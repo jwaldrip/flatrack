@@ -1,0 +1,9 @@
+<%== html_tag :div, 'something amazing' %>
+<%= html_tag :div, 'something amazing', data: { enabled: true } %>
+<%= html_tag :div, 'something amazing', default: true %>
+<%= html_tag(:div) do %>
+    Hello World
+<% end %>
+<%== html_tag(:div) do %>
+    Goodbye Humanity
+<% end %>
