@@ -1,7 +1,6 @@
 class Flatrack
   class View
     class OutputBuffer < ActiveSupport::SafeBuffer #:nodoc:
-
       def initialize(*)
         super
         encode!
@@ -12,15 +11,14 @@ class Flatrack
         super(value.to_s)
       end
 
-      alias :append= :<<
+      alias_method :append=, :<<
 
       def safe_concat(value)
         return self if value.nil?
         super(value.to_s)
       end
 
-      alias :safe_append= :safe_concat
-
+      alias_method :safe_append=, :safe_concat
     end
   end
 end

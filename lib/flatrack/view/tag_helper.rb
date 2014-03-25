@@ -5,15 +5,15 @@ class Flatrack
       include ERB::Util
 
       PRE_CONTENT_STRINGS = {
-        :textarea => "\n"
+        textarea: "\n"
       }
 
       BOOLEAN_ATTRIBUTES = %w(disabled readonly multiple checked autobuffer
-                           autoplay controls loop selected hidden scoped async
-                           defer reversed ismap seamless muted required
-                           autofocus novalidate formnovalidate open pubdate
-                           itemscope allowfullscreen default inert sortable
-                           truespeed typemustmatch).to_set
+                              autoplay controls loop selected hidden scoped async
+                              defer reversed ismap seamless muted required
+                              autofocus novalidate formnovalidate open pubdate
+                              itemscope allowfullscreen default inert sortable
+                              truespeed typemustmatch).to_set
 
       def html_tag(name, content_or_options_with_block = nil, options = nil, escape = true, &block)
         if block_given?
@@ -83,11 +83,10 @@ class Flatrack
       end
 
       def tag_option(key, value, escape)
-        value = value.join(" ") if value.is_a?(Array)
+        value = value.join(' ') if value.is_a?(Array)
         value = h(value) if escape
         %(#{key}="#{value}")
       end
-
     end
   end
 end

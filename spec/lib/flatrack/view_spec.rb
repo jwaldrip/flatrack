@@ -12,9 +12,9 @@ describe Flatrack::View do
   describe '#initialize' do
     it 'should set the response' do
       view = described_class.allocate
-      expect {
+      expect do
         view.send :initialize, response
-      }.to change {
+      end.to change {
         view.instance_variable_get :@response
       }.to response
     end

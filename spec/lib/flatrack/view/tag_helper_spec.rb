@@ -4,7 +4,7 @@ describe Flatrack::View::TagHelper do
   include Flatrack::FixtureHelper
 
   describe '#html_tag' do
-    let(:expected){ render_template 'html_tag.html' }
+    let(:expected) { render_template 'html_tag.html' }
 
     context 'using erb' do
       it 'should properly render' do
@@ -23,7 +23,7 @@ describe Flatrack::View::TagHelper do
   end
 
   describe '#image_tag' do
-    let(:expected){ render_template 'image_tag.html' }
+    let(:expected) { render_template 'image_tag.html' }
 
     context 'using erb' do
       it 'should properly render' do
@@ -42,7 +42,7 @@ describe Flatrack::View::TagHelper do
   end
 
   describe '#javascript_tag' do
-    let(:expected){ render_template 'javascript_tag.html' }
+    let(:expected) { render_template 'javascript_tag.html' }
 
     context 'using erb' do
       it 'should properly render' do
@@ -61,7 +61,7 @@ describe Flatrack::View::TagHelper do
   end
 
   describe '#stylesheet_tag' do
-    let(:expected){ render_template 'stylesheet_tag.html' }
+    let(:expected) { render_template 'stylesheet_tag.html' }
 
     context 'using erb' do
       it 'should properly render' do

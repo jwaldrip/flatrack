@@ -5,7 +5,6 @@ require 'flatrack/template/html'
 
 class Flatrack
   module Template
-
     def find(type, file)
       template = find_by_type type, file
       fail FileNotFound, "could not find #{file}" unless template

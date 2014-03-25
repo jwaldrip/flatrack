@@ -1,6 +1,5 @@
 class Flatrack
   class Response
-
     DEFAULT_FILE  = 'index'
     CONTENT_TYPES = {
       html: 'text/html',

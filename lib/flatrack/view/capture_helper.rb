@@ -26,7 +26,6 @@ class Flatrack
       ensure
         self.output_buffer = old_buffer
       end
-
     end
   end
 end

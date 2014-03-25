@@ -13,7 +13,6 @@ class Flatrack
         @options.merge!(trim: true)
         @engine = Handler.new(data, options)
       end
-
     end
   end
 end

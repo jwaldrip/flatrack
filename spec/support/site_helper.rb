@@ -48,6 +48,5 @@ class Flatrack
         rmtree sha
       end
     end
-
   end
 end

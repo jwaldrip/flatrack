@@ -46,9 +46,9 @@ class Flatrack
         def add_expr_escaped(src, code)
           flush_newline_if_pending(src)
           if code =~ BLOCK_EXPR
-            src << "@output_buffer.safe_append= " << code
+            src << '@output_buffer.safe_append= ' << code
           else
-            src << "@output_buffer.safe_append=(" << code << ");"
+            src << '@output_buffer.safe_append=(' << code << ');'
           end
         end
 

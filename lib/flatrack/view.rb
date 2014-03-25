@@ -26,6 +26,5 @@ class Flatrack
     rescue ArgumentError
       super()
     end
-
   end
 end

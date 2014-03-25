@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Flatrack::Site do
-  let(:mock_app){ ->(env){ [200,{},['ok']]} }
-  let(:mock_env){ Rack::MockRequest.env_for('example.org', {}) }
+  let(:mock_app) { ->(env) { [200, {}, ['ok']] } }
+  let(:mock_env) { Rack::MockRequest.env_for('example.org', {}) }
 
   it 'should be a rack app' do
     expect(described_class).to respond_to :call

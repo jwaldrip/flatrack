@@ -12,7 +12,7 @@ describe Rake::AssetTasks do
       Rake.application = @rake
 
       @env = Flatrack.assets
-      @dir = File.join(Dir::tmpdir, 'sprockets/manifest')
+      @dir = File.join(Dir.tmpdir, 'sprockets/manifest')
 
       Rake::AssetTasks.new do |t|
         t.output    = @dir
@@ -43,7 +43,7 @@ describe Rake::AssetTasks do
 
   describe 'tasks' do
 
-    it "should precompile" do
+    it 'should precompile' do
       digest_path = @env['main.js'].digest_path
       expect(File.exist? "#{@dir}/#{digest_path}").to be false
 
@@ -53,7 +53,7 @@ describe Rake::AssetTasks do
       expect(File.exist? "#{@dir}/#{digest_path}").to be true
     end
 
-    it "should clobber" do
+    it 'should clobber' do
       digest_path = @env['main.js'].digest_path
 
       @rake['assets:precompile'].invoke
@@ -63,10 +63,10 @@ describe Rake::AssetTasks do
       expect(File.exist? "#{@dir}/#{digest_path}").to be false
     end
 
-    it "should clean" do
-      expect {
+    it 'should clean' do
+      expect do
         @rake['assets:clean'].invoke
-      }.to_not raise_error
+      end.to_not raise_error
     end
 
   end

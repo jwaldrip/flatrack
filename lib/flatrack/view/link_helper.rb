@@ -19,11 +19,10 @@ class Flatrack
 
       private
 
-      def link_to_options(link, opts={})
+      def link_to_options(link, opts = {})
         link << '?' + opts.delete(:params).to_param if opts[:params].present?
         { href: link }.merge(opts)
       end
-
     end
   end
 end

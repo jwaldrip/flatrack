@@ -33,7 +33,6 @@ class Flatrack
   end
 
   class << self
-
     def delegate_instance
       @delegate_instance ||= new
     end
@@ -47,7 +46,6 @@ class Flatrack
     def method_missing(m, *args, &block)
       delegate_instance.public_method(m).call(*args, &block)
     end
-
   end
 
   def config(&block)
@@ -82,5 +80,4 @@ class Flatrack
 
   # Fix Locales issue
   I18n.enforce_available_locales = false
-
 end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Flatrack::AssetExtensions do
 
-  subject(:instance){ double.extend described_class }
+  subject(:instance) { double.extend described_class }
 
   describe '#asset_path' do
     it 'should be a path to the asset' do

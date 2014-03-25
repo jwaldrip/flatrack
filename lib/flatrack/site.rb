@@ -2,7 +2,6 @@ require 'rack/server'
 
 class Flatrack
   module Site
-
     def self.call(env)
       builder.call(env)
     end
@@ -28,6 +27,5 @@ class Flatrack
         '/'       => site
       }
     end
-
   end
 end
