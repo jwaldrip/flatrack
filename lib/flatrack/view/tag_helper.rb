@@ -2,6 +2,7 @@ class Flatrack
   class View
     module TagHelper
       include CaptureHelper
+      include ERB::Util
 
       PRE_CONTENT_STRINGS = {
         :textarea => "\n"
@@ -43,7 +44,7 @@ class Flatrack
 
       def html_tag_string(name, content, options, escape = true)
         tag_options = tag_options(options, escape) if options
-        content     = ERB::Util.h(content) if escape && !content.nil?
+        content     = h(content) if escape && !content.nil?
         '<'.tap do |tag|
           tag << name.to_s
           tag << tag_options.to_s
@@ -83,7 +84,7 @@ class Flatrack
 
       def tag_option(key, value, escape)
         value = value.join(" ") if value.is_a?(Array)
-        value = ERB::Util.h(value) if escape
+        value = h(value) if escape
         %(#{key}="#{value}")
       end
 

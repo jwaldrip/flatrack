@@ -31,7 +31,8 @@ class Flatrack
       'layout.html.erb'      => 'layouts/layout.html.erb',
       'page.html.erb'        => 'pages/index.html.erb',
       'stylesheet.css.scss'  => 'assets/stylesheets/main.css.scss',
-      'javascript.js.coffee' => 'assets/javascripts/main.js.coffee'
+      'javascript.js.coffee' => 'assets/javascripts/main.js.coffee',
+      'logo.png'             => 'assets/images/logo.png'
     }
 
     def new(path)

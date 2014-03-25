@@ -1,10 +1,10 @@
-![Flatrack](https://raw.github.com/jwaldrip/flatrack/master/logo.png)
+![Flatrack](https://raw.github.com/jwaldrip/flatrack/master/lib/flatrack/cli/templates/logo.png)
 --
 
 [![Version](http://allthebadges.io/jwaldrip/flatrack/badge_fury.png)](http://allthebadges.io/jwaldrip/flatrack/badge_fury)
 [![Dependencies](http://allthebadges.io/jwaldrip/flatrack/gemnasium.png)](http://allthebadges.io/jwaldrip/flatrack/gemnasium)
 [![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png)](http://allthebadges.io/jwaldrip/flatrack/travis)
-[![Coverage](http://allthebadges.io/jwaldrip/flatrack/coveralls.png?1)](http://allthebadges.io/jwaldrip/flatrack/coveralls)
+[![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
 
 ## About
