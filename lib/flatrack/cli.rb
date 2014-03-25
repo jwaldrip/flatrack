@@ -6,7 +6,8 @@ class Flatrack
     include FileUtils
     include Thor::Actions
 
-    source_root File.join Flatrack.gem_root, 'flatrack/cli/templates'
+    SRC_ROOT = File.join Flatrack.gem_root, 'flatrack/cli/templates'
+    source_root SRC_ROOT
 
     method_option :verbose, type: :boolean, default: true, aliases: :v
     method_option :bundle, type: :boolean, default: true, aliases: :b
@@ -31,8 +32,11 @@ class Flatrack
       'layout.html.erb'      => 'layouts/layout.html.erb',
       'page.html.erb'        => 'pages/index.html.erb',
       'stylesheet.css.scss'  => 'assets/stylesheets/main.css.scss',
-      'javascript.js.coffee' => 'assets/javascripts/main.js.coffee',
-      'logo.png'             => 'assets/images/logo.png'
+      'javascript.js.coffee' => 'assets/javascripts/main.js.coffee'
+    }
+
+    BIN_COPY_FILES = {
+      'logo.png' => 'assets/images/logo.png'
     }
 
     def new(path)
@@ -79,6 +83,10 @@ class Flatrack
     def write_files
       FILES.each do |temp, dest|
         template temp, dest, verbose: options[:verbose]
+      end
+      BIN_COPY_FILES.each do |src, dest|
+        src = File.join SRC_ROOT, src
+        copy_file src, dest, verbose: options[:verbose]
       end
     end
   end
