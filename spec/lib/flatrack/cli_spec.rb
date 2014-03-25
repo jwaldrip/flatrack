@@ -28,7 +28,8 @@ describe Flatrack::CLI do
             thread.kill
           rescue Errno::ECONNREFUSED => error
             retries += 1
-            sleep 0.1 and retry unless retries > 100
+            sleep 0.1
+            retry unless retries > 100
             raise error
           end
         end
@@ -47,7 +48,8 @@ describe Flatrack::CLI do
             thread.kill
           rescue Errno::ECONNREFUSED => error
             retries += 1
-            sleep 0.1 and retry unless retries > 100
+            sleep 0.1
+            retry unless retries > 100
             raise error
           end
         end

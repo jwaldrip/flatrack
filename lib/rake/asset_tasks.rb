@@ -17,6 +17,33 @@ module Rake
 
     delegate :paths, to: :environment
 
+    DEFINED_TASKS = proc do
+
+      namespace :assets do
+        desc 'precompile assets'
+        task :precompile do
+          with_logger do
+            manifest.compile(assets)
+          end
+        end
+
+        desc 'Remove all assets'
+        task :clobber do
+          with_logger do
+            manifest.clobber
+          end
+        end
+
+        desc 'Clean old assets'
+        task :clean do
+          with_logger do
+            manifest.clean(keep)
+          end
+        end
+      end
+
+    end
+
     # Number of old assets to keep.
 
     # Logger to use during rake tasks. Defaults to using stderr.
@@ -56,7 +83,9 @@ module Rake
     end
 
     def assets
-      files = paths.reduce([]) { |a, p| a + Dir[File.join p, '**', '*'] }
+      files = paths.reduce([]) do |ary, path|
+        ary + Dir[File.join path, '**', '*']
+      end
       files.map do |file|
         file_basename = File.basename file
         parts         = file_basename.split('.').size
@@ -67,28 +96,7 @@ module Rake
 
     # Define tasks
     def define
-      namespace :assets do
-        desc 'precompile assets'
-        task :precompile do
-          with_logger do
-            manifest.compile(assets)
-          end
-        end
-
-        desc 'Remove all assets'
-        task :clobber do
-          with_logger do
-            manifest.clobber
-          end
-        end
-
-        desc 'Clean old assets'
-        task :clean do
-          with_logger do
-            manifest.clean(keep)
-          end
-        end
-      end
+      instance_eval(&DEFINED_TASKS)
     end
 
     private

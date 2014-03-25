@@ -9,15 +9,18 @@ class Flatrack
       }
 
       BOOLEAN_ATTRIBUTES = %w(disabled readonly multiple checked autobuffer
-                              autoplay controls loop selected hidden scoped async
-                              defer reversed ismap seamless muted required
-                              autofocus novalidate formnovalidate open pubdate
-                              itemscope allowfullscreen default inert sortable
-                              truespeed typemustmatch).to_set
+                              autoplay controls loop selected hidden scoped
+                              async defer reversed ismap seamless muted
+                              required autofocus novalidate formnovalidate open
+                              pubdate itemscope allowfullscreen default inert
+                              sortable truespeed typemustmatch).to_set
 
-      def html_tag(name, content_or_options_with_block = nil, options = nil, escape = true, &block)
+      def html_tag(name, content_or_options_with_block = nil, options = nil,
+        escape = true, &block)
         if block_given?
-          options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
+          if content_or_options_with_block.is_a?(Hash)
+            options = content_or_options_with_block
+          end
           html_tag_string(name, capture(&block), options, escape)
         else
           html_tag_string(name, content_or_options_with_block, options, escape)
@@ -25,7 +28,7 @@ class Flatrack
       end
 
       def image_tag(uri, options = {})
-        uri = asset_path(uri) unless uri =~ /^(http)?(s)?:?\/\//
+        uri = asset_path(uri) unless uri =~ %r{^(http)?(s)?:?\/\/}
         options.merge! src: uri
         html_tag(:img, nil, options)
       end
@@ -53,33 +56,40 @@ class Flatrack
         end.html_safe
       end
 
-      def tag_options(options, escape = true)
-        return if options.blank?
-        attrs = options.reduce([]) do |attrs, (key, value)|
+      def tag_options(options = {}, escape = true)
+        attrs = build_tag_options(options, escape)
+        " #{attrs * ' '}" unless attrs.blank?
+      end
+
+      def build_tag_options(options = {}, escape = true)
+        (options || {}).reduce([]) do |attrs, (key, value)|
           if key.to_s == 'data' && value.is_a?(Hash)
-            value.each_pair do |k, v|
-              attrs << data_tag_option(k, v, escape)
-            end
+            attrs += data_tag_options(value, escape)
           elsif BOOLEAN_ATTRIBUTES.include?(key.to_s)
-            attrs << boolean_tag_option(key) if value
+            attrs << boolean_tag_option(key, value)
           elsif !value.nil?
             attrs << tag_option(key, value, escape)
           end
           attrs
+        end.compact.sort
+      end
+
+      def data_tag_options(hash, escape = true)
+        hash.each_pair.map do |k, v|
+          data_tag_option(k, v, escape)
         end
-        " #{attrs.sort! * ' '}" unless attrs.blank?
       end
 
       def data_tag_option(key, value, escape)
-        key = "data-#{key.to_s.dasherize}"
-        unless value.is_a?(String) || value.is_a?(Symbol) || value.is_a?(BigDecimal)
-          value = value.to_json
-        end
+        key   = "data-#{key.to_s.dasherize}"
+        value = value.to_json unless value.is_a?(String) ||
+          value.is_a?(Symbol) ||
+          value.is_a?(BigDecimal)
         tag_option(key, value, escape)
       end
 
-      def boolean_tag_option(key)
-        %(#{key}="#{key}")
+      def boolean_tag_option(key, bool)
+        %(#{key}="#{key}") if bool
       end
 
       def tag_option(key, value, escape)

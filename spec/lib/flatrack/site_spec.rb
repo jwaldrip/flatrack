@@ -13,8 +13,13 @@ describe Flatrack::Site do
 
     middlewares = 2.times.map do
       Class.new do
-        def initialize(app) @app = app end
-        def call(env) @app.call(env) end
+        def initialize(app)
+          @app = app
+        end
+
+        def call(env)
+          @app.call(env)
+        end
       end
     end
 

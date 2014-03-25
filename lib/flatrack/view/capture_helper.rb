@@ -8,9 +8,8 @@ class Flatrack
       def capture(*args)
         value  = nil
         buffer = with_output_buffer { value = yield(*args) }
-        if string = buffer.presence || value and string.is_a?(String)
-          html_escape string
-        end
+        string = buffer.presence || value
+        html_escape string if string.is_a?(String)
       end
 
       # Use an alternate output buffer for the duration of the block.

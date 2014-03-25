@@ -64,7 +64,9 @@ class Flatrack
 
         def flush_newline_if_pending(src)
           if @newline_pending > 0
-            src << "@output_buffer.safe_append='#{"\n" * @newline_pending}'.freeze;"
+            src << begin
+              "@output_buffer.safe_append='#{"\n" * @newline_pending}'.freeze;"
+            end
             @newline_pending = 0
           end
         end

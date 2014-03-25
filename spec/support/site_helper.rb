@@ -6,15 +6,10 @@ class Flatrack
     DIR = File.join Flatrack.gem_root, '../tmp/flatrack-sites'
     mkdir_p DIR
 
-    def site(clean: true)
+    def site(clean: true, &block)
       sha = SecureRandom.hex
       in_temp_sites do
-        Flatrack::CLI.start(
-          ['new', sha, '--verbose', 'false', '--bundle', 'false']
-        )
-        Dir.chdir(sha) do
-          yield
-        end
+        create_site(sha, &block)
       end
       clean ? cleanup(sha) : sha
     rescue => error
@@ -42,6 +37,15 @@ class Flatrack
     end
 
     private
+
+    def create_site(sha)
+      Flatrack::CLI.start(
+        ['new', sha, '--verbose', 'false', '--bundle', 'false']
+      )
+      Dir.chdir(sha) do
+        yield
+      end
+    end
 
     def cleanup(sha)
       Dir.chdir(DIR) do
