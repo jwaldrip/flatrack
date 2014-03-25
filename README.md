@@ -51,6 +51,18 @@ Anything in `/pages` maps to a URL at `/`, root of a directory will always map t
 
 `GET /foo.html` would map to `/pages/foo.html.erb`, the erb (or any other format) is optional if you wish to render your pages dynamically.
 
+## Templating Support
+
+### Built in
+
+* HTML
+* ERB
+* Ruby Evaluated Output
+
+### Extensions
+
+* [Haml](https://github.com/jwaldrip/haml-flatrack)
+
 ## Contributing
 
 1. Fork it ( http://github.com/<my-github-username>/flat-rack/fork )
