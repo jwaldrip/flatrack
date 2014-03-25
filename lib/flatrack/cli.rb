@@ -52,7 +52,7 @@ class Flatrack
     method_option :verbose, type: :boolean, default: true, aliases: :v
     method_option :port, type: :numeric, default: 5959, aliases: :p
 
-    desc 'start PORT', 'run the site on the given port'
+    desc 'start --port PORT', 'run the site on the given port'
 
     def start
       require './boot'
