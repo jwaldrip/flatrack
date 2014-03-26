@@ -50,4 +50,5 @@ based routing.
   spec.add_development_dependency 'simplecov', '~> 0.8'
   spec.add_development_dependency 'rubocop', '~> 0.18'
   spec.add_development_dependency 'inch', '~> 0.3'
+  spec.add_development_dependency 'yard', '~> 0.3'
 end
