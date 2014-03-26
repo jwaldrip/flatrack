@@ -61,11 +61,20 @@ Anything in `/pages` maps to a URL at `/`, root of a directory will always map t
 
 ### Extensions
 
-* [Haml](https://github.com/jwaldrip/haml-flatrack)
+* HAML ([haml-flatrack](https://github.com/jwaldrip/haml-flatrack))
+* Markdown ([redcarpet](https://github.com/vmg/redcarpet), [bluecloth](https://github.com/mislav/bluecloth/))
+* Textile (Redcloth)
+* _and more!_ (see [Tilt](https://github.com/rtomayko/tilt)) for more details.
+
+### Sites using flatrack
+___Pull Request to add yours!___
+
+* [jasonwaldrip.com](http://jasonwaldrip.com)
+* [carlypaige.com](http://carlypaige.com)
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/flat-rack/fork )
+1. Fork it ( http://github.com/jwaldrip/flat-rack/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
