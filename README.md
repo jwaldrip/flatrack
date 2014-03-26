@@ -31,7 +31,7 @@ You should have 3 directories:
 Location of sprockets assets, flatrack comes with Sass and Coffeescript out of the box.
 
     - images
-    - javascripte
+    - javascripts
     - stylesheets
     
 #### Pages
