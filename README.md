@@ -2,7 +2,6 @@
 --
 
 [![Version](http://allthebadges.io/jwaldrip/flatrack/badge_fury.png)](http://allthebadges.io/jwaldrip/flatrack/badge_fury)
-[![Dependencies](http://allthebadges.io/jwaldrip/flatrack/gemnasium.png)](http://allthebadges.io/jwaldrip/flatrack/gemnasium)
 [![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png)](http://allthebadges.io/jwaldrip/flatrack/travis)
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
