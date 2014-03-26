@@ -83,14 +83,17 @@ module Rake
     end
 
     def assets
-      files = paths.reduce([]) do |ary, path|
-        ary + Dir[File.join path, '**', '*']
-      end
       files.map do |file|
         file_basename = File.basename file
         parts         = file_basename.split('.').size
         file          = file.split('.').tap(&:pop).join('.') if parts > 2
         File.expand_path(file).sub(/(#{environment.paths.join('|')})\//, '')
+      end
+    end
+
+    def files
+      paths.reduce([]) do |ary, path|
+        ary + Dir[File.join path, '**', '*']
       end
     end
 

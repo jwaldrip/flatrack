@@ -38,7 +38,7 @@ class Flatrack
           add_expr_with_type(src, code, :safe)
         end
 
-        def add_expr_with_type(src, code, type=nil)
+        def add_expr_with_type(src, code, type = nil)
           setter = [type, :append].compact.join('_')
           flush_newline_if_pending(src)
           if code =~ BLOCK_EXPR
