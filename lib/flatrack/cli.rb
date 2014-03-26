@@ -17,7 +17,7 @@ class Flatrack
     desc 'new NAME', 'create a new flatrack site with the given name'
 
     # @private
-    KEEP_DIRS = [
+    KEEP_DIRS      = [
       'assets/stylesheets',
       'assets/javascripts',
       'assets/images',
@@ -27,7 +27,7 @@ class Flatrack
     ]
 
     # @private
-    FILES = {
+    FILES          = {
       '.gitignore'           => '.gitignore',
       'boot.rb'              => 'boot.rb',
       'Rakefile'             => 'Rakefile',
@@ -70,6 +70,15 @@ class Flatrack
       run_opts[:AccessLog] = Logger.new('/dev/null') unless options[:verbose]
       Rack::Server.start run_opts
     end
+
+    method_option :version, type: :boolean, default: false, aliases: :v
+    desc '--version', 'flatrack version'
+    # Info about flatrack
+    def __default__
+      puts 'Flatrack ' + Flatrack::VERSION and return if options[:version]
+    end
+
+    default_task :__default__
 
     private
 
