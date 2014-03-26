@@ -4,42 +4,10 @@ require 'flatrack'
 require 'logger'
 
 module Rake
-  # Simple Sprockets compilation Rake task macro.
-  #
-  #   Rake::AssetTasks.new
-  #
   class AssetTasks < Rake::TaskLib
-
-    class Asset
-
-      def initialize(env, file)
-        @env = env
-        @file = file
-      end
-
-      def path
-        File.expand_path(file).sub(/(#{@env.paths.join('|')})\//, '')
-      end
-
-      private
-
-      def basename
-        File.basename @file
-      end
-
-      def parts
-        basename.split('.').size
-      end
-
-      def file
-        if parts > 2
-          @file.split('.').tap(&:pop).join('.')
-        else
-          @file
-        end
-      end
-
-    end
+    extend ActiveSupport::Autoload
+    autoload :Asset
+    autoload :TASKS
 
     attr_accessor :output
     attr_reader :environment
@@ -48,33 +16,6 @@ module Rake
     attr_reader :keep
 
     delegate :paths, to: :environment
-
-    DEFINED_TASKS = proc do
-
-      namespace :assets do
-        desc 'precompile assets'
-        task :precompile do
-          with_logger do
-            manifest.compile(assets)
-          end
-        end
-
-        desc 'Remove all assets'
-        task :clobber do
-          with_logger do
-            manifest.clobber
-          end
-        end
-
-        desc 'Clean old assets'
-        task :clean do
-          with_logger do
-            manifest.clean(keep)
-          end
-        end
-      end
-
-    end
 
     # Number of old assets to keep.
 
@@ -128,7 +69,7 @@ module Rake
 
     # Define tasks
     def define
-      instance_eval(&DEFINED_TASKS)
+      instance_eval(&TASKS)
     end
 
     private
