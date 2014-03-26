@@ -21,11 +21,12 @@ A simple rack web layer for delivering rendered static files.
     
 ### Structure
 
-You should have 3 directories:
+You should have 4 directories:
 
     - assets
     - layouts
     - pages
+    - partials
     
 #### Assets
 Location of sprockets assets, flatrack comes with Sass and Coffeescript out of the box.
