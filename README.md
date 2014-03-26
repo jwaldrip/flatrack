@@ -64,7 +64,7 @@ Anything in `/pages` maps to a URL at `/`, root of a directory will always map t
 * HAML ([haml-flatrack](https://github.com/jwaldrip/haml-flatrack))
 * Markdown ([redcarpet](https://github.com/vmg/redcarpet), [bluecloth](https://github.com/mislav/bluecloth/))
 * Textile (Redcloth)
-* _and more!_ (see [Tilt](https://github.com/rtomayko/tilt)) for more details.
+* _and more!_ (see [Tilt](https://github.com/rtomayko/tilt) for more details.)
 
 ### Sites using flatrack
 ___Pull Request to add yours!___
