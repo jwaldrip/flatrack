@@ -1,4 +1,5 @@
 module Rake
+  # Asset class for sprockets pre-compilation
   class AssetTasks::Asset
     def initialize(env, file)
       @env  = env

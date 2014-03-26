@@ -6,6 +6,7 @@ require 'coffee-script'
 require 'sass'
 require 'rack'
 
+# A static site generator with a little sprinkle of ruby magic
 class Flatrack
   extend ActiveSupport::Autoload
 

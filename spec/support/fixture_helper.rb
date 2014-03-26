@@ -1,4 +1,5 @@
 class Flatrack
+  # Helps define fixtures for specs
   module FixtureHelper
     extend FileUtils
     include FileUtils

@@ -1,5 +1,6 @@
 class Flatrack
   class View
+    # View helpers to render link tags
     module LinkHelper
       include TagHelper
 

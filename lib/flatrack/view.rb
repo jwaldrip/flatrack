@@ -1,4 +1,5 @@
 class Flatrack
+  # The flatrack view
   class View
     extend ActiveSupport::Autoload
 

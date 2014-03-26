@@ -1,4 +1,5 @@
 class Flatrack
+  # Helps to build sample sites for specs
   module SiteHelper
     extend FileUtils
     include FileUtils

@@ -1,4 +1,6 @@
 class Flatrack
+  # parses an incoming flatrack request and provides a method to render a
+  # response
   class Request
     DEFAULT_FORMAT = 'html'
 

@@ -4,6 +4,7 @@ require 'flatrack'
 require 'logger'
 
 module Rake
+  # helps define asset tasks
   class AssetTasks < Rake::TaskLib
     extend ActiveSupport::Autoload
     autoload :Asset

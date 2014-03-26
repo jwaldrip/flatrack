@@ -4,6 +4,7 @@ require 'flatrack/template/rb'
 require 'flatrack/template/html'
 
 class Flatrack
+  # The default template parser/finder
   module Template
     def find(type, file)
       template = find_by_type type, file

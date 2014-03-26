@@ -1,5 +1,6 @@
 class Flatrack
   module Template
+    # The tilt template for rendering ERB in flatrack
     class Erubis < Tilt::ErubisTemplate
       extend ActiveSupport::Autoload
       autoload :Handler

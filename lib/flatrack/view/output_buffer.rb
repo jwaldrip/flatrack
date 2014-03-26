@@ -1,5 +1,6 @@
 class Flatrack
   class View
+    # A modified output buffer for block evaluation
     class OutputBuffer < ActiveSupport::SafeBuffer #:nodoc:
       def initialize(*)
         super

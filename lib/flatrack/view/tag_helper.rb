@@ -1,5 +1,6 @@
 class Flatrack
   class View
+    # View helpers for rendering various html tags
     module TagHelper
       include CaptureHelper
       include ERB::Util

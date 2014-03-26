@@ -1,6 +1,3 @@
 AllCops:
   Excludes:
     - vendor/bundle/**
-
-Documentation:
-  Enabled: false

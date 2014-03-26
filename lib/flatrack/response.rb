@@ -1,4 +1,5 @@
 class Flatrack
+  # Handles flatrack responses
   class Response
     DEFAULT_FILE  = 'index'
     CONTENT_TYPES = {

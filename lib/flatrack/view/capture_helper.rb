@@ -1,5 +1,6 @@
 class Flatrack
   class View
+    # Block capture support
     module CaptureHelper
       include ERB::Util
 

@@ -2,6 +2,7 @@ require 'thor'
 require 'flatrack'
 
 class Flatrack
+  # The command line interface for flatrack
   class CLI < Thor
     include FileUtils
     include Thor::Actions
