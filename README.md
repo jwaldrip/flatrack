@@ -6,6 +6,7 @@
 [![Build Status](http://allthebadges.io/jwaldrip/flatrack/travis.png)](http://allthebadges.io/jwaldrip/flatrack/travis)
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
+[![Inline docs](http://inch-pages.github.io/github/jwaldrip/flatrack.png)](http://inch-pages.github.io/github/jwaldrip/flatrack)
 
 ## About
 A simple rack web layer for delivering rendered static files.
