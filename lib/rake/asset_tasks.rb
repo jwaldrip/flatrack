@@ -9,6 +9,38 @@ module Rake
   #   Rake::AssetTasks.new
   #
   class AssetTasks < Rake::TaskLib
+
+    class Asset
+
+      def initialize(env, file)
+        @env = env
+        @file = file
+      end
+
+      def path
+        File.expand_path(file).sub(/(#{@env.paths.join('|')})\//, '')
+      end
+
+      private
+
+      def basename
+        File.basename @file
+      end
+
+      def parts
+        basename.split('.').size
+      end
+
+      def file
+        if parts > 2
+          @file.split('.').tap(&:pop).join('.')
+        else
+          @file
+        end
+      end
+
+    end
+
     attr_accessor :output
     attr_reader :environment
     attr_reader :index
@@ -84,10 +116,7 @@ module Rake
 
     def assets
       files.map do |file|
-        file_basename = File.basename file
-        parts         = file_basename.split('.').size
-        file          = file.split('.').tap(&:pop).join('.') if parts > 2
-        File.expand_path(file).sub(/(#{environment.paths.join('|')})\//, '')
+        Asset.new(environment, file).path
       end
     end
 
