@@ -24,31 +24,27 @@ class Flatrack
         # Erubis toggles <%= and <%== behavior when escaping is enabled.
         # We override to always treat <%== as escaped.
         def add_expr(src, code, indicator)
-          case indicator
-          when '=='
-            add_expr_escaped(src, code)
-          else
-            super
-          end
+          return super unless indicator == '=='
+          add_expr_escaped(src, code)
         end
 
         BLOCK_EXPR = /\s+(do|\{)(\s*\|[^|]*\|)?\s*\Z/
 
         def add_expr_literal(src, code)
-          flush_newline_if_pending(src)
-          if code =~ BLOCK_EXPR
-            src << '@output_buffer.append= ' << code
-          else
-            src << '@output_buffer.append=(' << code << ');'
-          end
+          add_expr_with_type(src, code)
         end
 
         def add_expr_escaped(src, code)
+          add_expr_with_type(src, code, :safe)
+        end
+
+        def add_expr_with_type(src, code, type=nil)
+          setter = [type, :append].compact.join('_')
           flush_newline_if_pending(src)
           if code =~ BLOCK_EXPR
-            src << '@output_buffer.safe_append= ' << code
+            src << "@output_buffer.#{setter}= " << code
           else
-            src << '@output_buffer.safe_append=(' << code << ');'
+            src << "@output_buffer.#{setter}=(" << code << ');'
           end
         end
 
