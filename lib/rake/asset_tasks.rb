@@ -21,9 +21,6 @@ module Rake
     # Number of old assets to keep.
 
     # Logger to use during rake tasks. Defaults to using stderr.
-    #
-    #   t.logger = Logger.new($stdout)
-    #
     attr_accessor :logger
 
     # Returns logger level Integer.
@@ -32,10 +29,7 @@ module Rake
     end
 
     # Set logger level with constant or symbol.
-    #
-    #   t.log_level = Logger::INFO
-    #   t.log_level = :debug
-    #
+    # @param level [Symbol, const] the logger level
     def log_level=(level)
       if level.is_a?(Integer)
         @logger.level = level
@@ -44,6 +38,7 @@ module Rake
       end
     end
 
+    # Initialize the rake task-builder
     def initialize
       @environment  = Flatrack.assets
       @logger       = Logger.new($stderr)
@@ -54,6 +49,12 @@ module Rake
       @manifest = Sprockets::Manifest.new(index, output)
       @keep     = 2
       define
+    end
+
+    private
+
+    def define
+      instance_eval(&TASKS)
     end
 
     def assets
@@ -67,13 +68,6 @@ module Rake
         ary + Dir[File.join path, '**', '*']
       end
     end
-
-    # Define tasks
-    def define
-      instance_eval(&TASKS)
-    end
-
-    private
 
     # Sub out environment logger with our rake task logger that
     # writes to stderr.

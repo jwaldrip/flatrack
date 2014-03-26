@@ -3,6 +3,8 @@ require 'rack/server'
 class Flatrack
   # Provides a rake wrapper for encapsulating a flatrack site
   module Site
+    # Call the site with a rack env
+    # @param env [Hash] the rack env
     def self.call(env)
       builder.call(env)
     end

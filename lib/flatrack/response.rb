@@ -1,26 +1,23 @@
 class Flatrack
   # Handles flatrack responses
   class Response
-    DEFAULT_FILE  = 'index'
-    CONTENT_TYPES = {
-      html: 'text/html',
-      rb:   'text/html'
-    }
+    # @private
+    DEFAULT_FILE = 'index'
 
     attr_reader :request
 
+    # Initializes a response
+    # @param request [Flatrack::Request]
     def initialize(request)
       @request = request
     end
 
-    def headers
-      @headers ||= {}
-    end
-
-    def body
-      @body ||= []
-    end
-
+    # Renders a response
+    # @param opts [Hash]
+    # @option opts [String] :file
+    # @option opts [Fixnum] :status
+    # @option opts [Symbol] :layout
+    # @return [Array] the rack response
     def render(file: file_for(request.path), status: 200, layout: :layout)
       page_content = proc { renderer_for_page(file).render(view) }
       set_content_type
@@ -32,11 +29,19 @@ class Flatrack
       [status, headers, body]
     end
 
-    def set_content_type
-      headers['Content-Type'] = CONTENT_TYPES[request.format.to_sym]
+    private
+
+    def body
+      @body ||= []
     end
 
-    private
+    def headers
+      @headers ||= {}
+    end
+
+    def set_content_type
+      headers['Content-Type'] = FORMATS[request.format.to_sym]
+    end
 
     def file_for(path)
       if File.directory?(File.join 'pages', path)

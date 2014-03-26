@@ -1,9 +1,11 @@
 require 'erubis'
 
 class Flatrack
-  module Template
+  class Template
     # The tilt template for rendering Ruby in flatrack
     class Rb < Tilt::ErubisTemplate
+      private
+
       def data
         "<%= #{super} %>"
       end

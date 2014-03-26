@@ -1,9 +1,11 @@
 class Flatrack
-  module Template
+  class Template
     # The tilt template for rendering ERB in flatrack
     class Erubis < Tilt::ErubisTemplate
       extend ActiveSupport::Autoload
       autoload :Handler
+
+      private
 
       def self.engine_initialized?
         defined? Handler

@@ -1,10 +1,12 @@
 require 'erubis'
 
 class Flatrack
-  module Template
+  class Template
     class Erubis < Tilt::ErubisTemplate
       # The default ERB handler for rendering erb files in flatrack
       class Handler < ::Erubis::Eruby
+        private
+
         def add_preamble(src)
           @newline_pending = 0
         end

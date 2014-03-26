@@ -5,10 +5,12 @@ class Flatrack
       include CaptureHelper
       include ERB::Util
 
+      # @private
       PRE_CONTENT_STRINGS = {
         textarea: "\n"
       }
 
+      # @private
       BOOLEAN_ATTRIBUTES = %w(disabled readonly multiple checked autobuffer
                               autoplay controls loop selected hidden scoped
                               async defer reversed ismap seamless muted
@@ -16,6 +18,25 @@ class Flatrack
                               pubdate itemscope allowfullscreen default inert
                               sortable truespeed typemustmatch).to_set
 
+      # Creates an HTML tag
+      #
+      # @overload html_tag(name, content, options={})
+      #   Creates an html tag using the provided content as the content of the
+      #   tag.
+      #
+      #   @param name [String] the name of the tag (i.e. a, img, style)
+      #   @param content [String] the content of the tag
+      #   @param options [Hash] the html options for the tag
+      #   @return [String]
+      #
+      # @overload html_tag(name, options={}, &block)
+      #   Creates an html tag using the provided content as the content of the
+      #   tag.
+      #
+      #   @param name [String] the name of the tag (i.e. a, img, style)
+      #   @param options [Hash] the html options for the tag
+      #   @yield the tag content
+      #   @return [String]
       def html_tag(name, content_or_options_with_block = nil, options = nil,
         escape = true, &block)
         if block_given?
@@ -28,17 +49,27 @@ class Flatrack
         end
       end
 
+      # Returns an HTML image tag
+      # @param uri [String] location of the image
+      # @param options [Hash] the html options for the tag
+      # @return [String]
       def image_tag(uri, options = {})
         uri = asset_path(uri) unless uri =~ %r{^(http)?(s)?:?\/\/}
         options.merge! src: uri
         html_tag(:img, nil, options)
       end
 
+      # Returns an HTML script tag for javascript
+      # @param uri [String] location of the javascript file
+      # @return [String]
       def javascript_tag(uri)
         uri = asset_path(uri) + '.js' if uri.is_a? Symbol
         html_tag(:script, '', src: uri, type: 'application/javascript')
       end
 
+      # Returns an HTML link tag for css
+      # @param uri [String] location of the css file
+      # @return [String]
       def stylesheet_tag(uri)
         uri = asset_path(uri) + '.css' if uri.is_a? Symbol
         html_tag(:link, nil, rel: 'stylesheet', type: 'text/css', href: uri)

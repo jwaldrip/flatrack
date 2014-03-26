@@ -18,41 +18,57 @@ class Flatrack
   autoload :AssetExtensions
   autoload :CLI
 
+  # @private
   TemplateNotFound = Class.new StandardError
+  # @private
   FileNotFound     = Class.new StandardError
-
+  # @private
   FORMATS = {}
 
   delegate :gem_root, :site_root, to: self
 
-  def self.gem_root
-    File.expand_path File.join __FILE__, '..'
-  end
-
-  def self.site_root
-    File.expand_path Dir.pwd
-  end
-
   class << self
-    def delegate_instance
-      @delegate_instance ||= new
+    # The root of the flatrack gem
+    # @!attribute [r] gem_root
+    # @return [String]
+    def gem_root
+      File.expand_path File.join __FILE__, '..'
     end
 
+    # The site root
+    # @!attribute [r] site_root
+    # @return [String]
+    def site_root
+      File.expand_path Dir.pwd
+    end
+
+    # Reset the state of flatrack and its configuration
     def reset!
       @delegate_instance = nil
     end
 
     private
 
+    def delegate_instance
+      @delegate_instance ||= new
+    end
+
     def method_missing(m, *args, &block)
       delegate_instance.public_method(m).call(*args, &block)
     end
   end
 
+  # Configure the flatrack instance
+  # @yield [Flatrack] configuration for the flatrack instance
+  # @return [Flatrack]
   def config(&block)
     yield self
+    self
   end
 
+  # The flatrack sprockets environment
+  # @!attribute [r] assets
+  # @return [Sprockets::Environment]
   def assets
     @assets ||= begin
       Sprockets::Environment.new.tap do |environment|
@@ -64,16 +80,23 @@ class Flatrack
     end
   end
 
+  # register a format extension by its mime type
+  # @param ext [String] the extension
+  # @param mime [String] the mime type
   def register_format(ext, mime)
     FORMATS[ext.to_s] = mime
   end
 
+  # The middleware stack for flatrack
   def middleware
     @middleware ||= []
   end
 
-  def use(*args)
-    middleware << args
+  # Insert a rack middleware at the end of the stack
+  # @param middleware [Class] the middleware class
+  # @param options [Hash] the options for the middleware
+  def use(middleware, options = nil)
+    self.middleware << [middleware, options].compact
   end
 
   # By default we know how to render 'text/html'

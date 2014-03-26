@@ -7,6 +7,7 @@ class Flatrack
     include FileUtils
     include Thor::Actions
 
+    # @private
     SRC_ROOT = File.join Flatrack.gem_root, 'flatrack/cli/templates'
     source_root SRC_ROOT
 
@@ -15,6 +16,7 @@ class Flatrack
 
     desc 'new NAME', 'create a new flatrack site with the given name'
 
+    # @private
     KEEP_DIRS = [
       'assets/stylesheets',
       'assets/javascripts',
@@ -24,6 +26,7 @@ class Flatrack
       'partials'
     ]
 
+    # @private
     FILES = {
       '.gitignore'           => '.gitignore',
       'boot.rb'              => 'boot.rb',
@@ -36,10 +39,13 @@ class Flatrack
       'javascript.js.coffee' => 'assets/javascripts/main.js.coffee'
     }
 
+    # @private
     BIN_COPY_FILES = {
       'logo.png' => 'assets/images/logo.png'
     }
 
+    # Create a new app
+    # @param path [String]
     def new(path)
       mkdir_p path
       full_path             = File.expand_path path
@@ -54,7 +60,7 @@ class Flatrack
     method_option :port, type: :numeric, default: 5959, aliases: :p
 
     desc 'start --port PORT', 'run the site on the given port'
-
+    # Start the app
     def start
       require './boot'
       run_opts             = {}

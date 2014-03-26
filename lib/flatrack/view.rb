@@ -20,8 +20,10 @@ class Flatrack
 
     attr_accessor :output_buffer
 
+    # initializes a flatrack view
+    # @param response [Flatrack::Response]
     def initialize(response)
-      @response = response
+      @response      = response
       @output_buffer = OutputBuffer.new
       super(response)
     rescue ArgumentError
