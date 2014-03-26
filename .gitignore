@@ -4,3 +4,7 @@ pkg/*
 tmp
 coverage
 /.sass-cache/
+
+/.yardoc/
+
+/doc/
