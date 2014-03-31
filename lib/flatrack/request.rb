@@ -42,7 +42,7 @@ class Flatrack
     private
 
     def respond_with_error(code)
-      Response.new(self).render(file: "#{code}.html", status: code)
+      Response.new(self).render(file: code, status: code)
     rescue FileNotFound
       file = File.join Flatrack.gem_root, '../error_pages', "#{code}.html"
       Response.new(self).render(file: file, status: code)
