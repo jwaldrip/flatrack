@@ -1,3 +1,4 @@
 AllCops:
   Excludes:
     - vendor/bundle/**
+    - spec/**
