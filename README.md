@@ -39,6 +39,14 @@ Pages are the guts of your site, this is what your users will ultimately see. Ba
 
 #### Layouts
 Layouts are the skin of your site, it's what takes all those guts that your users need and crave and puts them in a nice pretty layout for them to enjoy.
+
+You can also define a custom layout using the following syntax:
+
+```html+erb
+<!-- /pages/my-view.html.erb -->
+<%- use_layout :custom_layout %>
+<p>Hello World</p>
+```
     
 ## Running your site
 
