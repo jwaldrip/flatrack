@@ -3,6 +3,6 @@ rvm:
   - 2.0.0
   - 2.1.1
 cache: bundler
-after:
+after_success:
   - bundle exec inch
   - bundle exec rubocop
