@@ -6,33 +6,39 @@ require 'flatrack/template/html'
 class Flatrack
   # The default template parser/finder
   class Template
-    attr_reader :type, :file
+    # @private
+    DEFAULT_FORMAT = 'html'
+
+    attr_reader :type, :file, :format
+    delegate :render, to: :@renderer
 
     # Creates a new template instance and invokes find
     # @param type [Symbol] the type of template
+    # @param format [String] the format e.g. html
     # @param file [String] the location of the file
-    def self.find(type, file)
-      new(type, file).find
+    def self.find(type, format, file)
+      new(type, format, file)
     end
 
     # Creates a new template instance
     # @param type [Symbol] the type of template
+    # @param format [String] the format e.g. html
     # @param file [String] the location of the file
-    def initialize(type, file)
-      @type, @file = type, file
+    def initialize(type, format, file)
+      @format      = format || DEFAULT_FORMAT
+      @type, @file = type, file.to_s
+      @renderer = find
     end
 
-    # Finds a given template
-    # @return [Tilt::Template]
+    private
+
     def find
       template = find_by_type
       fail FileNotFound, "could not find #{file}" unless template
       Tilt.new template, options
     rescue RuntimeError
-      raise(TemplateNotFound, "could not find a renderer for #{file}")
+      raise TemplateNotFound, "could not find a renderer for #{file}"
     end
-
-    private
 
     def options
       local_options = {}
@@ -45,7 +51,8 @@ class Flatrack
       if File.exist?(file)
         file
       else
-        Dir[File.join type.to_s.pluralize, "#{file}*"].first
+        file_with_format = [file, format].compact.join('.')
+        Dir[File.join type.to_s.pluralize, "#{file_with_format}*"].first
       end
     end
   end

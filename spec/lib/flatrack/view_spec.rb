@@ -42,7 +42,7 @@ describe Flatrack::View do
 
     it 'should properly render a partial' do
       site do
-        write(:partial, 'sample.erb', template)
+        write(:partial, 'sample.html.erb', template)
         result = view.render(:sample)
         expect(result).to include 'Hello World'.reverse
       end

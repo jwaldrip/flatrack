@@ -2,9 +2,6 @@ class Flatrack
   # parses an incoming flatrack request and provides a method to render a
   # response
   class Request
-    # @private
-    DEFAULT_FORMAT = 'html'
-
     attr_reader :env, :rack_request
 
     # Initializes a response
@@ -26,7 +23,11 @@ class Flatrack
 
     # the format on the incoming request
     def format
-      (ext = File.extname path).empty? ? DEFAULT_FORMAT : ext.sub(/\./, '')
+      ext = File.extname path
+      unless ext.empty?
+        path.sub!(/#{ext}/, '')
+        ext.split('.').last
+      end
     end
 
     # the processed response for an inbound request

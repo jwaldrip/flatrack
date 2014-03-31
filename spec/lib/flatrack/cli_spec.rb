@@ -57,4 +57,11 @@ describe Flatrack::CLI do
     end
   end
 
+  describe '--version' do
+    it 'should display the flatrack version' do
+      expect(STDOUT).to receive(:puts).with 'Flatrack ' + Flatrack::VERSION
+      Flatrack::CLI.start(%w(--version))
+    end
+  end
+
 end

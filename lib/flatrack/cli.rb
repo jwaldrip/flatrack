@@ -75,7 +75,10 @@ class Flatrack
     desc '--version', 'flatrack version'
     # Info about flatrack
     def __default__
-      puts 'Flatrack ' + Flatrack::VERSION and return if options[:version]
+      if options[:version]
+        puts 'Flatrack ' + Flatrack::VERSION
+        return
+      end
     end
 
     default_task :__default__

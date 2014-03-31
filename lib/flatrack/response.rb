@@ -4,7 +4,9 @@ class Flatrack
     # @private
     DEFAULT_FILE = 'index'
 
+    attr_accessor :layout
     attr_reader :request
+    delegate :format, to: :request
 
     # Initializes a response
     # @param request [Flatrack::Request]
@@ -19,17 +21,32 @@ class Flatrack
     # @option opts [Symbol] :layout
     # @return [Array] the rack response
     def render(file: file_for(request.path), status: 200, layout: :layout)
-      page_content = proc { renderer_for_page(file).render(view) }
-      set_content_type
+      @file, @status, @layout = file, status, layout
+      page_content            = pre_render_page
       body << begin
-        renderer_for_layout(layout).render(view, &page_content)
+        renderer_for_layout(@layout).render view, &proc { page_content }
       rescue Flatrack::FileNotFound
-        page_content.call
+        page_content
       end
       [status, headers, body]
     end
 
+    # Set the layout
+    # @param layout [String]
+    # @return [String]
+    def use_layout(layout)
+      @layout = layout.to_s
+    end
+
     private
+
+    def pre_render_page
+      renderer                = renderer_for_page(@file)
+      content                 = renderer.render(view)
+      @view                   = nil
+      headers['Content-Type'] = FORMATS[renderer.format.to_sym]
+      content
+    end
 
     def body
       @body ||= []
@@ -37,10 +54,6 @@ class Flatrack
 
     def headers
       @headers ||= {}
-    end
-
-    def set_content_type
-      headers['Content-Type'] = FORMATS[request.format.to_sym]
     end
 
     def file_for(path)
@@ -52,11 +65,11 @@ class Flatrack
     end
 
     def renderer_for_page(file)
-      Template.find :page, file
+      Template.find :page, format, file
     end
 
     def renderer_for_layout(file)
-      Template.find :layout, File.join("#{file}.#{request.format}")
+      Template.find :layout, format, file
     end
 
     def view

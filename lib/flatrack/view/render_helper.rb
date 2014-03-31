@@ -6,7 +6,7 @@ class Flatrack
       # @param file [Symbol, String]
       # @return [String]
       def render(file)
-        Template.find(:partial, file.to_s).render(self)
+        Template.find(:partial, nil, file.to_s).render(self)
       end
     end
   end
