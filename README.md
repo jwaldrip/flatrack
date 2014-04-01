@@ -6,6 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
 [![Inline docs](http://inch-pages.github.io/github/jwaldrip/flatrack.png)](http://inch-pages.github.io/github/jwaldrip/flatrack)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jwaldrip/flatrack/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## About
 A simple rack web layer for delivering rendered static files.
@@ -88,7 +89,3 @@ ___Pull Request to add yours!___
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jwaldrip/flatrack/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
