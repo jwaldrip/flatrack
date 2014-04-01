@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/jwaldrip/flatrack/badge.png?branch=master)](https://coveralls.io/r/jwaldrip/flatrack?branch=master)
 [![Code Climate](http://allthebadges.io/jwaldrip/flatrack/code_climate.png)](http://allthebadges.io/jwaldrip/flatrack/code_climate)
 [![Inline docs](http://inch-pages.github.io/github/jwaldrip/flatrack.png)](http://inch-pages.github.io/github/jwaldrip/flatrack)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jwaldrip/flatrack/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Inline docs](http://img.shields.io/badge/github-follow-lightgrey.png)](https://github.com/jwaldrip/flatrack)
 
 ## About
 A simple rack web layer for delivering rendered static files.
