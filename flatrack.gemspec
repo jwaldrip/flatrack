@@ -34,14 +34,14 @@ based routing.
   spec.add_runtime_dependency 'tilt', '~> 1.1'
   spec.add_runtime_dependency 'activesupport', ['> 3.2', '< 4.2']
   spec.add_runtime_dependency 'sass', '~> 3.2.0'
-  spec.add_runtime_dependency 'sprockets-sass', '~> 1.0'
+  spec.add_runtime_dependency 'sprockets', '~> 2.12'
   spec.add_runtime_dependency 'thor', '~> 0.18'
   spec.add_runtime_dependency 'coffee-script', '~> 2.2'
   spec.add_runtime_dependency 'rake', ['> 0.8.7', '< 10.2']
 
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
-  spec.add_development_dependency 'rspec', '~> 2.14'
+  spec.add_development_dependency 'rspec', '~> 3.1'
   spec.add_development_dependency 'guard', '~> 2.5'
   spec.add_development_dependency 'guard-rspec', '~> 4.2'
   spec.add_development_dependency 'guard-bundler', '~> 2.0'
