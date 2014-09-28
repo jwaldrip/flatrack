@@ -15,6 +15,8 @@ end
 require 'flatrack'
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
+Object.send(:define_method, :warn){ |*args| }
+
 RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run focus: true
