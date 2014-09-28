@@ -5,8 +5,8 @@ class Flatrack
       # Renders a partial
       # @param file [Symbol, String]
       # @return [String]
-      def render(file)
-        Template.find(:partial, nil, file.to_s).render(self)
+      def render(file, *args)
+        Template.find(:partial, nil, file.to_s).render(self, *args)
       end
     end
   end
