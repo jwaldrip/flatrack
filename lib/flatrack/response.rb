@@ -44,7 +44,7 @@ class Flatrack
       renderer                = renderer_for_page(@file)
       content                 = renderer.render(view)
       @view                   = nil
-      headers['Content-Type'] = FORMATS[renderer.format.to_sym]
+      headers['Content-Type'] = FORMATS[renderer.format.to_s]
       content
     end
 
