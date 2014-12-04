@@ -48,9 +48,9 @@ class Flatrack
         pathname = resolve(context, path, base_path) or return nil
         context.depend_on pathname
         ::Sass::Engine.new evaluate(context, pathname), options.merge(
-          :filename => pathname.to_s,
-          :syntax   => syntax(pathname),
-          :importer => self
+          filename: pathname.to_s,
+          syntax: syntax(pathname),
+          importer: self
         )
       end
 
@@ -65,9 +65,9 @@ class Flatrack
         end
         return nil if imports.empty?
         ::Sass::Engine.new imports, options.merge(
-          :filename => base_path.to_s,
-          :syntax   => :scss,
-          :importer => self
+          filename: base_path.to_s,
+          syntax: :scss,
+          importer: self
         )
       end
 
@@ -135,7 +135,7 @@ class Flatrack
         attributes = context.environment.attributes_for(path)
         processors = context.environment.preprocessors(attributes.content_type) + attributes.engines.reverse
         processors.delete_if { |processor| processor < Tilt::SassTemplate }
-        context.evaluate(path, :processors => processors)
+        context.evaluate(path, processors: processors)
       end
     end
   end

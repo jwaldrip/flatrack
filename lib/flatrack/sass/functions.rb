@@ -148,16 +148,16 @@ module Sass::Script::Functions
     defined?(@signatures) && @signatures.delete(method)
   end
 
-  declare :asset_path,     [:source], :var_kwargs => true
+  declare :asset_path,     [:source], var_kwargs: true
   declare :asset_path,     [:source, :kind]
-  declare :asset_url,      [:source], :var_kwargs => true
+  declare :asset_url,      [:source], var_kwargs: true
   declare :asset_url,      [:source, :kind]
-  declare :image_path,     [:source], :var_kwargs => true
-  declare :image_url,      [:source], :var_kwargs => true
+  declare :image_path,     [:source], var_kwargs: true
+  declare :image_url,      [:source], var_kwargs: true
   declare :image_url,      [:source, :only_path]
   declare :image_url,      [:source, :only_path, :cache_buster]
-  declare :font_path,      [:source], :var_kwargs => true
-  declare :font_url,       [:source], :var_kwargs => true
+  declare :font_path,      [:source], var_kwargs: true
+  declare :font_url,       [:source], var_kwargs: true
   declare :font_url,       [:source, :only_path]
   declare :asset_data_uri, [:source]
 end

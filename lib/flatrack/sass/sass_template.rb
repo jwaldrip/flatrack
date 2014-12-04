@@ -66,12 +66,12 @@ class Flatrack
       # Assemble the options for the `Sass::Engine`
       def sass_options
         merge_sass_options(default_sass_options, options).merge(
-          :filename    => eval_file,
-          :line        => line,
-          :syntax      => syntax,
-          :cache_store => cache_store,
-          :importer    => Importer.new,
-          :custom      => { :sprockets_context => context }
+          filename: eval_file,
+          line: line,
+          syntax: syntax,
+          cache_store: cache_store,
+          importer: Importer.new,
+          custom: { sprockets_context: context }
         )
       end
 
