@@ -23,9 +23,10 @@ class Flatrack
   # @private
   FileNotFound     = Class.new StandardError
   # @private
-  FORMATS = {}
+  FORMATS          = {}
 
-  delegate :gem_root, :site_root, to: self
+  delegate :gem_root, to: self
+  delegate :call, to: :builder
 
   class << self
     # The root of the flatrack gem
@@ -39,7 +40,7 @@ class Flatrack
     # @!attribute [r] site_root
     # @return [String]
     def site_root
-      File.expand_path Dir.pwd
+      Dir.pwd
     end
 
     # Reset the state of flatrack and its configuration
@@ -61,9 +62,9 @@ class Flatrack
   # Configure the flatrack instance
   # @yield [Flatrack] configuration for the flatrack instance
   # @return [Flatrack]
-  def config(&block)
-    yield self
-    self
+  def config
+    yield self if block_given?
+    { site_root: site_root }
   end
 
   # The flatrack sprockets environment
@@ -99,9 +100,37 @@ class Flatrack
     self.middleware << [middleware, options].compact
   end
 
+  def site_root
+    @site_root || self.class.site_root
+  end
+
+  def site
+    lambda { |env|
+      env.merge 'flatrack.config' => self.config
+      Request.new(env).response
+    }
+  end
+
+  private
+
+  def builder
+    @builder ||= begin
+      middleware = self.middleware
+      Rack::Builder.app do
+        use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
+        middleware.each { |mw| use *mw }
+        MAPPING.each { |path, app| map(path) { run app } }
+      end
+    end
+  end
+
   # By default we know how to render 'text/html'
   register_format :html, 'text/html'
 
   # Fix Locales issue
   I18n.enforce_available_locales = false
+
+  # Mapping for the paths
+  # @private
+  MAPPING                        = { '/assets' => assets, '/' => site }
 end
