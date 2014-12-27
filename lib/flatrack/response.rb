@@ -6,7 +6,7 @@ class Flatrack
 
     attr_accessor :layout
     attr_reader :request
-    delegate :format, to: :request
+    delegate :config, :format, to: :request
 
     # Initializes a response
     # @param request [Flatrack::Request]
@@ -58,18 +58,17 @@ class Flatrack
 
     def file_for(path)
       if File.directory?(File.join 'pages', path)
-        File.join(path, DEFAULT_FILE)
-      else
-        path
+        path = File.join(path, DEFAULT_FILE)
       end
+      path
     end
 
     def renderer_for_page(file)
-      Template.find :page, format, file
+      Template.find config.site_root, :page, format, file
     end
 
     def renderer_for_layout(file)
-      Template.find :layout, format, file
+      Template.find config.site_root, :layout, format, file
     end
 
     def view

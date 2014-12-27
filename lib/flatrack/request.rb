@@ -39,6 +39,12 @@ class Flatrack
       respond_with_error(404)
     end
 
+    def config
+      @config ||= OpenStruct.new(env['flatrack.config']).tap do |config|
+        config.site_root ||= Flatrack.site_root
+      end
+    end
+
     private
 
     def respond_with_error(code)
