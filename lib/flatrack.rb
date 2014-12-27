@@ -106,7 +106,7 @@ class Flatrack
 
   def site
     lambda { |env|
-      env.merge 'flatrack.config' => self.config
+      env.merge! 'flatrack.config' => self.config
       Request.new(env).response
     }
   end
