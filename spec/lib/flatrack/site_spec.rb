@@ -26,9 +26,7 @@ describe Flatrack::Site do
     Flatrack.config do |site|
       middlewares.each do |middleware|
         expect_any_instance_of(middleware)
-        .to receive(:call)
-            .with(mock_env)
-            .and_call_original
+            .to receive(:call).with(mock_env).and_call_original
         site.use middleware
       end
     end
