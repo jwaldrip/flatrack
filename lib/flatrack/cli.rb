@@ -58,11 +58,15 @@ class Flatrack
 
     method_option :verbose, type: :boolean, default: true, aliases: :v
     method_option :port, type: :numeric, default: 5959, aliases: :p
+    method_option :root, default: Dir.pwd, type: :string, aliases: :r
 
     desc 'start --port PORT', 'run the site on the given port'
     # Start the app
     def start
-      require './boot'
+      Flatrack.config do |config|
+        config.site_root   = options[:root]
+      end
+      require './boot' if File.exist? './boot'
       run_opts             = {}
       run_opts[:app]       = Flatrack::Site
       run_opts[:Port]      = options[:port]

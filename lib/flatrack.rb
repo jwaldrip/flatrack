@@ -27,6 +27,7 @@ class Flatrack
 
   delegate :gem_root, to: self
   delegate :call, to: :builder
+  attr_writer :site_root
 
   class << self
     # The root of the flatrack gem
@@ -73,9 +74,9 @@ class Flatrack
   def assets
     @assets ||= begin
       Sprockets::Environment.new.tap do |environment|
-        environment.append_path 'assets/images'
-        environment.append_path 'assets/javascripts'
-        environment.append_path 'assets/stylesheets'
+        environment.append_path File.join site_root, 'assets/images'
+        environment.append_path File.join site_root, 'assets/javascripts'
+        environment.append_path File.join site_root, 'assets/stylesheets'
         environment.context_class.class_eval { include AssetExtensions }
       end
     end
