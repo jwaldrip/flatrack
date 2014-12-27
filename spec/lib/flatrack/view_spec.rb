@@ -4,7 +4,7 @@ describe Flatrack::View do
   include Flatrack::SiteHelper
 
   let(:uri) { URI.parse 'http://example.org/index.html' }
-  let(:env) { Rack::MockRequest.env_for uri.to_s }
+  let(:env) { Flatrack.mock_env_for uri.to_s }
   let(:request) { Flatrack::Request.new env }
   let(:response) { Flatrack::Response.new request }
   subject(:view) { described_class.new response }

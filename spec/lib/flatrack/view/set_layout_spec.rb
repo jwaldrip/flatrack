@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Flatrack::View do
   def render_template(fixture)
     path = File.join Flatrack.gem_root, '../spec/fixtures/templates', fixture
-    env = Rack::MockRequest.env_for 'http://example.com'
+    env = Flatrack.mock_env_for 'http://example.com'
     req = Flatrack::Request.new env
     _, _, body = Flatrack::Response.new(req).render(file: path)
     body.first.lines.map(&:strip).join

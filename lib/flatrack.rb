@@ -93,6 +93,11 @@ class Flatrack
     @middleware ||= []
   end
 
+  def mock_env_for(url, opts={})
+    opts.merge! 'flatrack.config' => config
+    Rack::MockRequest.env_for url, opts
+  end
+
   # Insert a rack middleware at the end of the stack
   # @param middleware [Class] the middleware class
   # @param options [Hash] the options for the middleware
