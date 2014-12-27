@@ -40,9 +40,7 @@ class Flatrack
     end
 
     def config
-      @config ||= OpenStruct.new(env['flatrack.config']).tap do |config|
-        config.site_root ||= Flatrack.site_root
-      end
+      @config ||= OpenStruct.new(env['flatrack.config'])
     end
 
     private
