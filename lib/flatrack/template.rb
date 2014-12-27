@@ -9,25 +9,26 @@ class Flatrack
     # @private
     DEFAULT_FORMAT = 'html'
 
-    attr_reader :type, :file, :format
+    attr_reader :base_path, :type, :file, :format
     delegate :render, to: :@renderer
 
     # Creates a new template instance and invokes find
     # @param type [Symbol] the type of template
     # @param format [String] the format e.g. html
     # @param file [String] the location of the file
-    def self.find(type, format, file)
-      new(type, format, file)
+    def self.find(base_path, type, format, file)
+      new(base_path, type, format, file)
     end
 
     # Creates a new template instance
     # @param type [Symbol] the type of template
     # @param format [String] the format e.g. html
     # @param file [String] the location of the file
-    def initialize(type, format, file)
+    def initialize(base_path, type, format, file)
+      @base_path   = base_path
       @format      = format || DEFAULT_FORMAT
       @type, @file = type, file.to_s
-      @renderer = find
+      @renderer    = find
     end
 
     private
@@ -52,7 +53,7 @@ class Flatrack
         file
       else
         file_with_format = [file, format].compact.join('.')
-        Dir[File.join type.to_s.pluralize, "#{file_with_format}*"].first
+        Dir[File.join base_path, type.to_s.pluralize, "#{file_with_format}*"].first
       end
     end
   end
