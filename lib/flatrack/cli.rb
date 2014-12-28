@@ -67,7 +67,7 @@ class Flatrack
         config.site_root   = options[:root]
       end
       begin
-        require './boot'
+        require File.join Dir.pwd, 'boot'
       rescue LoadError
         nil
       end
