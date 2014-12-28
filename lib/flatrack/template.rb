@@ -49,7 +49,8 @@ class Flatrack
     end
 
     def find_by_type
-      if file.start_with?(base_path) && File.exist?(file)
+      paths = [base_path, Flatrack.gem_root]
+      if paths.any? { |path| file.start_with? path } && File.exist?(file)
         file
       else
         file_with_format = [file, format].compact.join('.')
