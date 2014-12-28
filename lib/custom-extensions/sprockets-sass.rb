@@ -22,5 +22,11 @@ module Sprockets
 
     @options = {}
     @add_sass_functions = true
+
+    # Allow to fallback to real sass
+    def self.const_missing(const)
+      ::Sass.const_get const
+    end
+    
   end
 end
