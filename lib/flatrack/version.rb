@@ -1,5 +1,5 @@
 # Version
 class Flatrack
   # @private
-  VERSION = '1.4.0.beta5'
+  VERSION = '1.4.0.beta6'
 end
