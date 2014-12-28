@@ -37,7 +37,7 @@ based routing.
   spec.add_runtime_dependency 'sprockets-sass', '~> 1.2'
   spec.add_runtime_dependency 'thor', '~> 0.18'
   spec.add_runtime_dependency 'coffee-script', '~> 2.2'
-  spec.add_runtime_dependency 'rake', ['> 0.8.7', '< 10.2']
+  spec.add_runtime_dependency 'rake', ['> 0.8.7', '< 10.4']
 
   # Dev Dependencies
   spec.add_development_dependency 'bundler', '~> 1.5'
