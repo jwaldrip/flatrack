@@ -33,14 +33,20 @@ class Flatrack
     # the processed response for an inbound request
     def response
       Response.new(self).render
-    rescue TemplateNotFound
+    rescue TemplateNotFound => e
+      raise e if config.raise_errors
       respond_with_error(500)
-    rescue FileNotFound
+    rescue FileNotFound => e
+      raise e if config.raise_errors
       respond_with_error(404)
     end
 
     def config
-      @config ||= OpenStruct.new(env['flatrack.config'])
+      env['flatrack.config']
+    end
+
+    def mount_path
+      env['flatrack.mount_path']
     end
 
     private

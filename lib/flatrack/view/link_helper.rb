@@ -32,7 +32,10 @@ class Flatrack
       #   @return [String]
       def link_to(*args, &block)
         href, options, block = link_to_options(*args, &block)
-        html_tag :a, link_to_tag_options(href, options || {}), &block
+        if href.start_with?('/') && !href.start_with?('//') && mount_path != '/'
+          href = File.join '', mount_path, href
+        end
+        html_tag(:a, link_to_tag_options(href, options || {}), false, &block)
       end
 
       private

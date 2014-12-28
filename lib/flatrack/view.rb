@@ -19,7 +19,7 @@ class Flatrack
     include ERB::Util
 
     attr_accessor :output_buffer
-    delegate :config, :use_layout, to: :@response
+    delegate :mount_path, :config, :use_layout, to: :@response
 
     # initializes a flatrack view
     # @param response [Flatrack::Response]

@@ -17,6 +17,7 @@ class Flatrack
   autoload :Site
   autoload :AssetExtensions
   autoload :CLI
+  autoload :Middleware
 
   # @private
   TemplateNotFound = Class.new StandardError
@@ -24,10 +25,13 @@ class Flatrack
   FileNotFound     = Class.new StandardError
   # @private
   FORMATS          = {}
+  # @private
+  MAPPING          = { '/assets' => :assets, '/' => :site }
 
   delegate :gem_root, to: self
   delegate :call, to: :builder
   attr_writer :site_root
+  attr_accessor :raise_errors
 
   class << self
     # The root of the flatrack gem
@@ -65,7 +69,10 @@ class Flatrack
   # @return [Flatrack]
   def config
     yield self if block_given?
-    { site_root: site_root }
+    OpenStruct.new(
+        site_root:    site_root,
+        raise_errors: raise_errors
+    ).freeze
   end
 
   # The flatrack sprockets environment
@@ -95,8 +102,8 @@ class Flatrack
   end
 
   def mock_env_for(url, opts={})
-    opts.merge! 'flatrack.config' => config
-    Rack::MockRequest.env_for url, opts
+    env = Rack::MockRequest.env_for url, opts
+    env.merge! env_extensions env
   end
 
   # Insert a rack middleware at the end of the stack
@@ -112,20 +119,35 @@ class Flatrack
 
   def site
     lambda { |env|
-      env.merge! 'flatrack.config' => self.config
+      env.merge! env_extensions env
       Request.new(env).response
     }
   end
 
   private
 
+  def env_extensions(env)
+    # Extract Mount Path
+    mount_path =
+        env.values_at('ORIGINAL_FULLPATH', 'PATH_INFO')
+            .map { |p| p.to_s.split '/' }
+            .reduce(:-)
+            .join '/'
+
+    # Build Hash
+    {
+        'flatrack.config'     => self.config,
+        'flatrack.mount_path' => mount_path
+    }
+  end
+
   def builder
     @builder ||= begin
-      middleware = self.middleware
+      this = self
       Rack::Builder.app do
         use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
-        middleware.each { |mw| use *mw }
-        MAPPING.each { |path, app| map(path) { run app } }
+        this.middleware.each { |mw| use *mw }
+        MAPPING.each { |path, app| map(path) { run this.send(app) } }
       end
     end
   end
@@ -135,8 +157,4 @@ class Flatrack
 
   # Fix Locales issue
   I18n.enforce_available_locales = false
-
-  # Mapping for the paths
-  # @private
-  MAPPING                        = { '/assets' => assets, '/' => site }
 end

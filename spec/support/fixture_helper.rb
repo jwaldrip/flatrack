@@ -24,7 +24,7 @@ class Flatrack
     end
 
     def env
-      Rack::MockRequest.env_for 'http://example.org/index.html'
+      Flatrack.mock_env_for 'http://example.org/index.html'
     end
   end
 end
