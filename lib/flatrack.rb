@@ -1,7 +1,6 @@
 require 'flatrack/version'
 require 'active_support/all'
-require 'sprockets'
-require 'sprockets-sass'
+require 'custom-extensions/sprockets-sass'
 require 'coffee-script'
 require 'sass'
 require 'rack'
@@ -80,7 +79,10 @@ class Flatrack
   # @return [Sprockets::Environment]
   def assets
     @assets ||= begin
+      Sass.load_paths << File.join(site_root, 'assets/stylesheets')
       Sprockets::Environment.new.tap do |environment|
+        environment.register_engine '.sass', Sprockets::Sass::SassTemplate
+        environment.register_engine '.scss', Sprockets::Sass::ScssTemplate
         environment.append_path File.join site_root, 'assets/images'
         environment.append_path File.join site_root, 'assets/javascripts'
         environment.append_path File.join site_root, 'assets/stylesheets'
