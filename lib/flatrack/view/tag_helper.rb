@@ -7,11 +7,11 @@ class Flatrack
 
       # @private
       PRE_CONTENT_STRINGS = {
-        textarea: "\n"
+          textarea: "\n"
       }
 
       # @private
-      BOOLEAN_ATTRIBUTES = %w(disabled readonly multiple checked autobuffer
+      BOOLEAN_ATTRIBUTES  = %w(disabled readonly multiple checked autobuffer
                               autoplay controls loop selected hidden scoped
                               async defer reversed ismap seamless muted
                               required autofocus novalidate formnovalidate open
@@ -37,16 +37,17 @@ class Flatrack
       #   @param options [Hash] the html options for the tag
       #   @yield the tag content
       #   @return [String]
-      def html_tag(name, content_or_options_with_block = nil, options = nil,
-        escape = true, &block)
+      def html_tag(name, *args, &block)
+        content, options, escape = args
         if block_given?
-          if content_or_options_with_block.is_a?(Hash)
-            options = content_or_options_with_block
-          end
-          html_tag_string(name, capture(&block), options, escape)
+          check_arguments [name, *args], 1..3
+          options, escape = content, options
+          content = capture(&block)
         else
-          html_tag_string(name, content_or_options_with_block, options, escape)
+          check_arguments [name, *args], 2..4
         end
+        escape = true if escape.nil?
+        html_tag_string(name, content, options, escape)
       end
 
       # Returns an HTML image tag
@@ -76,6 +77,13 @@ class Flatrack
       end
 
       private
+
+      def check_arguments(args, number_or_range)
+        range = number_or_range.is_a?(Fixnum) ? [number_or_range] : number_or_range
+        unless range.include? args.size
+          raise ArgumentError, "wrong number of arguments (#{args.count} for #{number_or_range.inspect})"
+        end
+      end
 
       def html_tag_string(name, content, options, escape = true)
         tag_options = tag_options(options, escape) if options
@@ -115,8 +123,8 @@ class Flatrack
       def data_tag_option(key, value, escape)
         key   = "data-#{key.to_s.dasherize}"
         value = value.to_json unless value.is_a?(String) ||
-          value.is_a?(Symbol) ||
-          value.is_a?(BigDecimal)
+            value.is_a?(Symbol) ||
+            value.is_a?(BigDecimal)
         tag_option(key, value, escape)
       end
 
