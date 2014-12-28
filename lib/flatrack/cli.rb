@@ -66,7 +66,11 @@ class Flatrack
       Flatrack.config do |config|
         config.site_root   = options[:root]
       end
-      require './boot' if File.exist? './boot'
+      begin
+        require './boot'
+      rescue LoadError
+        nil
+      end
       run_opts             = {}
       run_opts[:app]       = Flatrack::Site
       run_opts[:Port]      = options[:port]
