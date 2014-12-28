@@ -49,7 +49,7 @@ class Flatrack
     end
 
     def find_by_type
-      if File.exist?(file)
+      if File.exist?(file) && file.start_with?(base_path)
         file
       else
         file_with_format = [file, format].compact.join('.')
