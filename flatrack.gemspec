@@ -30,6 +30,7 @@ based routing.
 
   # Dependencies
   spec.add_runtime_dependency 'rack', '~> 1.4'
+  spec.add_runtime_dependency 'rack-contrib', '~> 1.2'
   spec.add_runtime_dependency 'erubis', '~> 2.7'
   spec.add_runtime_dependency 'tilt', '~> 1.1'
   spec.add_runtime_dependency 'activesupport', ['> 3.2', '< 4.2']

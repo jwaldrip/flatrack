@@ -4,6 +4,7 @@ require 'custom-extensions/sprockets-sass'
 require 'coffee-script'
 require 'sass'
 require 'rack'
+require 'rack/contrib'
 
 # A static site generator with a little sprinkle of ruby magic
 class Flatrack
@@ -147,6 +148,7 @@ class Flatrack
     @builder ||= begin
       this = self
       Rack::Builder.app do
+        use Rack::Cookies
         use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
         this.middleware.each { |mw| use *mw }
         MAPPING.each { |path, app| map(path) { run this.send(app) } }
