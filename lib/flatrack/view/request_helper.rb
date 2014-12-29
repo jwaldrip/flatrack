@@ -13,6 +13,12 @@ class Flatrack
       def path
         @response.request.path
       end
+      # Returns the IP address for the request
+      # @return [String]
+      def request_ip
+        @response.request.env['REMOTE_ADDR']
+      end
+
       # Returns the cookies
       # @return [Hash]
       def cookies
