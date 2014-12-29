@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Flatrack::Site do
   let(:mock_app) { ->(env) { [200, {}, ['ok']] } }
-  let(:mock_env) { Rack::MockRequest.env_for('example.org', {}) }
+  let(:mock_env) { Flatrack.mock_env_for('example.org', {}) }
 
   it 'should be a rack app' do
     expect(described_class).to respond_to :call
@@ -36,7 +36,7 @@ describe Flatrack::Site do
 
   it 'should formulate a proper response' do
     expect(Flatrack::Request).to receive(:new).and_call_original
-    expect_any_instance_of(Flatrack::Request).to receive(:response)
+    expect_any_instance_of(Flatrack::Request).to receive(:response).and_call_original
     Flatrack::Site.call(mock_env)
   end
 end
