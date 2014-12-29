@@ -20,7 +20,7 @@ class Flatrack
     # @option opts [Fixnum] :status
     # @option opts [Symbol] :layout
     # @return [Array] the rack response
-    def render(file: file_for(request.path), status: 200, layout: :layout)
+    def render(file: file_for(request.page), status: 200, layout: :layout)
       @file, @status, @layout = file, status, layout
       page_content            = pre_render_page
       body << begin

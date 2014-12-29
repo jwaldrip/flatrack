@@ -8,11 +8,20 @@ class Flatrack
         @response.request.params
       end
 
-      # Returns the path
+      # Returns the path before rewrites
       # @return [String]
-      def path
+      def current_path
         @response.request.path
       end
+      alias path current_path
+
+      # Returns the page being displayed
+      # @return [String]
+      def current_page
+        @response.request.page
+      end
+      alias page current_page
+
       # Returns the IP address for the request
       # @return [String]
       def request_ip

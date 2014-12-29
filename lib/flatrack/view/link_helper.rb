@@ -35,7 +35,11 @@ class Flatrack
         if href.start_with?('/') && !href.start_with?('//') && mount_path != '/'
           href = File.join '', mount_path, href
         end
-        html_tag(:a, link_to_tag_options(href, options || {}), false, &block)
+        tag_opts = link_to_tag_options(href, options || {})
+        if current_page == tag_opts[:href]
+          ((tag_opts[:class] ||= '') << ' active').strip!
+        end
+        html_tag(:a, tag_opts, false, &block)
       end
 
       private

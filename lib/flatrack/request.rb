@@ -13,6 +13,10 @@ class Flatrack
 
     # the path of the incoming request
     def path
+      env['ORIGINAL_PATH_INFO'] || env['PATH_INFO']
+    end
+
+    def page
       env['PATH_INFO']
     end
 
@@ -46,7 +50,7 @@ class Flatrack
     end
 
     def mount_path
-      env['flatrack.mount_path']
+      env['SCRIPT_NAME'].present? ? env['SCRIPT_NAME'] : '/'
     end
 
     private

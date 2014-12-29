@@ -18,6 +18,11 @@ class Flatrack
   autoload :AssetExtensions
   autoload :CLI
   autoload :Middleware
+  autoload :Rewriter
+  autoload :Redirector
+
+  Redirector
+  Rewriter
 
   # @private
   TemplateNotFound = Class.new StandardError
@@ -49,6 +54,8 @@ class Flatrack
     end
 
     # Reset the state of flatrack and its configuration
+    # For testing
+    # @private
     def reset!
       @delegate_instance = nil
     end
@@ -64,14 +71,20 @@ class Flatrack
     end
   end
 
+  # @private
+  def initialize_copy(other)
+    other.instance_variable_set :@builder, nil
+    super
+  end
+
   # Configure the flatrack instance
   # @yield [Flatrack] configuration for the flatrack instance
   # @return [Flatrack]
   def config
     yield self if block_given?
     OpenStruct.new(
-        site_root:    site_root,
-        raise_errors: raise_errors
+      site_root:    site_root,
+      raise_errors: raise_errors
     ).freeze
   end
 
@@ -100,13 +113,52 @@ class Flatrack
   end
 
   # The middleware stack for flatrack
+  # @!attribute [r] middleware
+  # @return [Hash]
   def middleware
     @middleware ||= []
   end
 
+  # This is for testing
+  # @private
   def mock_env_for(url, opts={})
     env = Rack::MockRequest.env_for url, opts
-    env.merge! env_extensions env
+    env.merge! env_extensions
+  end
+
+  # Rewrite a path
+  # @param source [String]
+  # @param to [String]
+  def rewrite(source, to: nil)
+    unless [source, to].all? { |path| path.is_a? String }
+      raise ArgumentError, 'mappings must be strings'
+    end
+    rewrites.merge! source => to
+  end
+
+  # redirect a path
+  # @param source [String]
+  # @param to [String]
+  # @param type [Symbol]
+  def redirect(source, to: nil, type: :permanent)
+    unless [source, to].all? { |path| path.is_a? String }
+      raise ArgumentError, 'mappings must be strings'
+    end
+    redirects.merge! source => Redirector::Redirect.new(to, type)
+  end
+
+  # The rewrites
+  # @!attribute [r] rewrites
+  # @return [Hash]
+  def rewrites
+    @rewrites ||= {}
+  end
+
+  # The redirects
+  # @!attribute [r] redirects
+  # @return [Hash]
+  def redirects
+    @redirects ||= {}
   end
 
   # Insert a rack middleware at the end of the stack
@@ -116,44 +168,40 @@ class Flatrack
     self.middleware << [middleware, options].compact
   end
 
+  # The site root
+  # @!attribute [r] site_root
+  # @return [String]
   def site_root
     @site_root || self.class.site_root
   end
 
+  # Returns the site lambda
+  # @return [Proc]
   def site
     lambda { |env|
-      env.merge! env_extensions env
+      env.merge! env_extensions
       Request.new(env).response
     }
   end
 
   private
 
-  def env_extensions(env)
-    # Extract Mount Path
-    mount_path =
-        env.values_at('ORIGINAL_FULLPATH', 'PATH_INFO')
-            .map { |p| p.to_s.split '/' }
-            .reduce(:-)
-            .join '/'
-
-    # Build Hash
-    {
-        'flatrack.config'     => self.config,
-        'flatrack.mount_path' => mount_path
-    }
-  end
-
   def builder
     @builder ||= begin
       this = self
       Rack::Builder.app do
         use Rack::Cookies
+        use Flatrack::Rewriter, this.rewrites if this.rewrites.present?
+        use Flatrack::Redirector, this.rewrites if this.redirects.present?
         use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
         this.middleware.each { |mw| use *mw }
         MAPPING.each { |path, app| map(path) { run this.send(app) } }
       end
     end
+  end
+
+  def env_extensions
+    { 'flatrack.config' => self.config }
   end
 
   # By default we know how to render 'text/html'
