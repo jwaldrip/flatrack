@@ -9,7 +9,9 @@ class Flatrack
     end
 
     def mount_path
-      method(__method__).super_method ? super : '/'
+      a = singleton_class.ancestors
+      has_super = a[a.index(AssetExtensions) + 1].method_defined? __method__
+      has_super ? super : '/'
     end
   end
 end
