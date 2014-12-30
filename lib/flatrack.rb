@@ -60,6 +60,10 @@ class Flatrack
       @delegate_instance = nil
     end
 
+    def site=(instance)
+      @delegate_instance = instance
+    end
+
     private
 
     def delegate_instance
@@ -192,8 +196,10 @@ class Flatrack
       Rack::Builder.app do
         use Rack::Cookies
         use Flatrack::Rewriter, this.rewrites if this.rewrites.present?
-        use Flatrack::Redirector, this.rewrites if this.redirects.present?
-        use Rack::Static, urls: ['/favicon.ico', 'assets'], root: 'public'
+        use Flatrack::Redirector, this.redirects if this.redirects.present?
+        use Rack::Static,
+            urls: ['/favicon.ico', 'assets'],
+            root: File.join(this.site_root, 'public')
         this.middleware.each { |mw| use *mw }
         MAPPING.each { |path, app| map(path) { run this.send(app) } }
       end
