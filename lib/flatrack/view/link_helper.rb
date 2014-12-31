@@ -36,7 +36,7 @@ class Flatrack
           href = File.join '', mount_path, href
         end
         tag_opts = link_to_tag_options(href, options || {})
-        if current_page == tag_opts[:href]
+        if current_path == tag_opts[:href]
           ((tag_opts[:class] ||= '') << ' active').strip!
         end
         html_tag(:a, tag_opts, false, &block)
