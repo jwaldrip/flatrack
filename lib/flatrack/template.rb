@@ -12,6 +12,13 @@ class Flatrack
     attr_reader :base_path, :type, :file, :format
     delegate :render, to: :@renderer
 
+    def self.register_path(path)
+      classes.each do |klass|
+        files = Dir.glob File.join path, '**', "*.#{klass::RENDERS}"
+        Tilt.register klass, *files
+      end
+    end
+
     # Creates a new template instance and invokes find
     # @param type [Symbol] the type of template
     # @param format [String] the format e.g. html
@@ -33,9 +40,16 @@ class Flatrack
 
     private
 
+    def self.classes
+      constants.map { |k| const_get k }.select do |klass|
+        klass.is_a?(Class) && klass < Tilt::Template
+      end
+    end
+
     def find
       template = find_by_type
       fail FileNotFound, "could not find #{file}" unless template
+      template = File.expand_path template
       Tilt.new template, options
     rescue RuntimeError
       raise TemplateNotFound, "could not find a renderer for #{file}"

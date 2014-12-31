@@ -2,6 +2,8 @@ class Flatrack
   class Template
     # The tilt template for rendering HTML in flatrack
     class Html < Tilt::PlainTemplate
+      RENDERS = 'html'
+
       private
 
       def evaluate(scope, locals, &block)
@@ -10,5 +12,3 @@ class Flatrack
     end
   end
 end
-
-Tilt.prefer Flatrack::Template::Html, 'html'

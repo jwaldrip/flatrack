@@ -35,7 +35,6 @@ class Flatrack
 
   delegate :gem_root, to: self
   delegate :call, to: :builder
-  attr_writer :site_root
   attr_accessor :raise_errors
 
   class << self
@@ -170,6 +169,12 @@ class Flatrack
   # @param options [Hash] the options for the middleware
   def use(middleware, options = nil)
     self.middleware << [middleware, options].compact
+  end
+
+  def site_root=(path)
+    path = File.expand_path path
+    Template.register_path path
+    @site_root = path
   end
 
   # The site root
