@@ -20,6 +20,7 @@ class Flatrack
   autoload :Middleware
   autoload :Rewriter
   autoload :Redirector
+  autoload :DomainParser
 
   Redirector
   Rewriter
@@ -200,6 +201,7 @@ class Flatrack
       this = self
       Rack::Builder.app do
         use Rack::Cookies
+        use DomainParser
         use Flatrack::Rewriter, this.rewrites if this.rewrites.present?
         use Flatrack::Redirector, this.redirects if this.redirects.present?
         use Rack::Static,
