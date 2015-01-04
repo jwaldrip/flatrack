@@ -6,7 +6,7 @@ describe Rake::AssetTasks do
   include FileUtils
   include Flatrack::SiteHelper
 
-  before(:all) do
+  before(:each) do
     @sha = site(clean: false) do
       @rake            = Rake::Application.new
       Rake.application = @rake
@@ -21,7 +21,7 @@ describe Rake::AssetTasks do
     end
   end
 
-  after(:all) do
+  after(:each) do
     Rake.application = nil
     cleanup(@sha)
     rm_rf(@dir)

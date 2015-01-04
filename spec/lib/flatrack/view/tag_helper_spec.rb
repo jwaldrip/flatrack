@@ -20,6 +20,15 @@ describe Flatrack::View::TagHelper do
       end
     end
 
+    context 'with in invalid number of arguments' do
+      it 'should raise an error' do
+        mock = double
+        mock.extend Flatrack::View::TagHelper
+        expect { mock.html_tag :foo, 'bar', { baz: :raz }, false, true }
+          .to raise_error ArgumentError
+      end
+    end
+
   end
 
   describe '#image_tag' do

@@ -75,12 +75,6 @@ class Flatrack
     end
   end
 
-  # @private
-  def initialize_copy(other)
-    other.instance_variable_set :@builder, nil
-    super
-  end
-
   # Configure the flatrack instance
   # @yield [Flatrack] configuration for the flatrack instance
   # @return [Flatrack]
@@ -182,7 +176,7 @@ class Flatrack
   # @!attribute [r] site_root
   # @return [String]
   def site_root
-    @site_root || self.class.site_root
+    @site_root || (self.site_root = self.class.site_root)
   end
 
   # Returns the site lambda

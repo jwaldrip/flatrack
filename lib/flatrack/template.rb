@@ -64,10 +64,13 @@ class Flatrack
 
     def find_by_type
       paths = [base_path, Flatrack.gem_root]
+
+      # To support direct html files
       if paths.any? { |path| file.start_with? path } && File.exist?(file)
         file
       else
-        file_with_format = [file, format].compact.join('.')
+        file_without_format = File.join(File.dirname(file), File.basename(file, ".#{format}"))
+        file_with_format = [file_without_format, format].compact.join('.')
         Dir[File.join base_path, type.to_s.pluralize, "#{file_with_format}*"].first
       end
     end

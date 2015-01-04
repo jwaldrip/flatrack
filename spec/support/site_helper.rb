@@ -33,7 +33,9 @@ class Flatrack
     end
 
     def get_page_response(page)
-      env = Rack::MockRequest.env_for "http://example.org/#{page}.html"
+      url = URI.parse 'http://example.org'
+      url.path = File.join '', page
+      env = Rack::MockRequest.env_for url.to_s
       Flatrack::Site.call(env)
     end
 
