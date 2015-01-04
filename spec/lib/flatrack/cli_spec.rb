@@ -25,12 +25,13 @@ describe Flatrack::CLI do
           retries = 0
           begin
             Net::HTTP.get URI.parse 'http://localhost:5959'
-            thread.kill
           rescue Errno::ECONNREFUSED => error
             retries += 1
             sleep 0.1
             retry unless retries > 100
             raise error
+          ensure
+            thread.kill
           end
         end
       end.to_not raise_error
@@ -45,12 +46,13 @@ describe Flatrack::CLI do
           retries = 0
           begin
             Net::HTTP.get URI.parse 'http://localhost:8282'
-            thread.kill
           rescue Errno::ECONNREFUSED => error
             retries += 1
             sleep 0.1
             retry unless retries > 100
             raise error
+          ensure
+            thread.kill
           end
         end
       end.to_not raise_error
@@ -62,38 +64,18 @@ describe Flatrack::CLI do
           site do
             FileUtils.rm 'boot.rb'
             thread  = Thread.new do
-              Flatrack::CLI.start(%w(start --verbose false))
+              Flatrack::CLI.start(%w(start --port 8283 --verbose false))
             end
             retries = 0
             begin
-              Net::HTTP.get URI.parse 'http://localhost:5959'
-              thread.kill
+              Net::HTTP.get URI.parse 'http://localhost:8283'
             rescue Errno::ECONNREFUSED => error
               retries += 1
               sleep 0.1
               retry unless retries > 100
               raise error
-            end
-          end
-        end.to_not raise_error
-      end
-
-      it 'should start a server on a custom port' do
-        expect do
-          site do
-            FileUtils.rm 'boot.rb'
-            thread  = Thread.new do
-              Flatrack::CLI.start(%w(start --port 8282 --verbose false))
-            end
-            retries = 0
-            begin
-              Net::HTTP.get URI.parse 'http://localhost:8282'
+            ensure
               thread.kill
-            rescue Errno::ECONNREFUSED => error
-              retries += 1
-              sleep 0.1
-              retry unless retries > 100
-              raise error
             end
           end
         end.to_not raise_error
