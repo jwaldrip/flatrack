@@ -34,7 +34,7 @@ based routing.
   spec.add_runtime_dependency 'erubis', '~> 2.7'
   spec.add_runtime_dependency 'tilt', '~> 1.1'
   spec.add_runtime_dependency 'activesupport', ['> 3.2', '< 5.0']
-  spec.add_runtime_dependency 'sass', '~> 3.2.0'
+  spec.add_runtime_dependency 'sass', '~> 3.2'
   spec.add_runtime_dependency 'sprockets-sass', '~> 1.2'
   spec.add_runtime_dependency 'thor', '~> 0.18'
   spec.add_runtime_dependency 'coffee-script', '~> 2.2'
